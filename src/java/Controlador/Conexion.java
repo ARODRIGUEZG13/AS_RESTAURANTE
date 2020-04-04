@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Conexion {
-    
-    //Se modifico usuario, aun falta crearlo en Oracle AWS
-    //prueba
+
     private Connection con;
     private String Username = "USER1";
     private String Password = "123";
