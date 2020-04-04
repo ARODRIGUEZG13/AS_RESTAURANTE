@@ -10,7 +10,7 @@ public class Conexion {
     
     //Se modifica usuario
     private Connection con;
-    private String Username = "EGOMEZ";
+    private String Username = "USER1";
     private String Password = "123";
     private String Puerto   = "1521";
     private String Hostname = "@db-restaurante.cst6mnzu82my.us-east-2.rds.amazonaws.com";
