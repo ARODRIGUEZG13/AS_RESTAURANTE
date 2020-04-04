@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 public class Conexion {
     
+    //Se modifica usuario
     private Connection con;
     private String Username = "EGOMEZ";
     private String Password = "123";
