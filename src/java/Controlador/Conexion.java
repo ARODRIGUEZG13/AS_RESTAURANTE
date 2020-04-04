@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Conexion {
     
-    //Se modifica usuario
+    //Se modifico usuario, aun falta crearlo en Oracle AWS
     private Connection con;
     private String Username = "USER1";
     private String Password = "123";
