@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Esto es el LOGIN</h1>
+        <h6>continuidad</h6>
     </body>
 </html>
