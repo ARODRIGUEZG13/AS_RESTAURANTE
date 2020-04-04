@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Esto es el LOGIN</h1>
+        <h1>Esto es el LOGIN erick</h1>
         
     </body>
 </html>
