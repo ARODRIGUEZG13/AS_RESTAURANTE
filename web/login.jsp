@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Esto es el LOGIN por Cristian</h1>
+        <h1>Esto es el LOGIN Prueba</h1>
     </body>
 </html>
