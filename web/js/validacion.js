@@ -18,8 +18,14 @@ $(function (){
                 if(r!==""){
                     if(r==="denegado"){
                         swal("Acceso denegado","Nombre de usuario y/o contraseña incorrectos ...","error");
-                    }else{
-                        swal("Acceso correcto","Bienvenido "+r,"success");
+                    }else if(r==="CJO"){
+                        location.href = "MP_Cajero.jsp";
+                    }else if(r=="MSO"){
+                        location.href = "MP_Mesero.jsp";
+                    }else if(r==="RPN"){
+                        location.href = "MP_Recepcion.jsp";
+                    }else if(r==="ADS"){
+                        location.href = "MP_Admin.jsp";
                     }
                 }
             }

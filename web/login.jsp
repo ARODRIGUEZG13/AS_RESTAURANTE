@@ -77,20 +77,6 @@
 		</div>
 	</div>
 	
-	
-<%
-    HttpSession sesion = request.getSession();
-    String usuario = (String) request.getAttribute("usuario");
-    if(usuario!=null){
-        if(usuario == "false"){
-%>      <script>swal("Acceso denegado","El usuario y/o contraseña son incorrectos","error");</script> <%
-        }else{
-        session.setAttribute("usuario", usuario);
-%>      <script>swal ("Acceso correcto","Bienvenido al sistema","success");</script> <%    
-        }
-    }
-%>
-	
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
         <script src="vendor/bootstrap/js/popper.min.js" type="text/javascript"></script>

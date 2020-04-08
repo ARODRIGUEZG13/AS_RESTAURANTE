@@ -43,8 +43,8 @@ public class Login extends HttpServlet {
         HttpSession sesion = request.getSession();
         
         if(u != null){
-            respuesta = u.getNOMBRES()+" "+u.getAPELLIDOS();
-            sesion.setAttribute("usuario", usuario);
+            respuesta = u.getID_CARGO();
+            sesion.setAttribute("usuario", u.getID_USUARIO());
         }else{
             respuesta = "denegado";
         }
