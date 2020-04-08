@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V12</title>
+	<title>Iniciar Sesion</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -29,6 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+        
 </head>
 <body>
 	
@@ -37,7 +38,7 @@
 			<div class="wrap-login100 p-t-190 p-b-30">
 				<form class="login100-form validate-form">
 					<div class="login100-form-avatar">
-						<img src="images/avatar-01.png" alt="AVATAR">
+                                            <img src="images/avatar-01.png" alt=""/>
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
@@ -45,7 +46,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Ingrese su usuario">
-						<input class="input100" type="text" name="username" placeholder="Username">
+						<input class="input100" type="text" id="txtUsuario" placeholder="Username">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user"></i>
@@ -53,7 +54,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-10" data-validate = "Ingrese su contraseña">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+                                            <input class="input100" type="password" id="txtPass" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock"></i>
@@ -61,14 +62,14 @@
 					</div>
 
 					<div class="container-login100-form-btn p-t-10">
-						<button class="login100-form-btn">
+                                            <button  type="button" class="login100-form-btn" id="btnLogin">
 							Login
-						</button>
+					    </button>
 					</div>
 
 					<div class="text-center w-full p-t-25 p-b-230">
                                                 <a href="crear_usuario.jsp" class="txt1">
-							Registrar empleado
+							Registrar usuario
 						</a>
 					</div>
 				</form>
@@ -77,10 +78,24 @@
 	</div>
 	
 	
-
+<%
+    HttpSession sesion = request.getSession();
+    String usuario = (String) request.getAttribute("usuario");
+    if(usuario!=null){
+        if(usuario == "false"){
+%>      <script>swal("Acceso denegado","El usuario y/o contraseña son incorrectos","error");</script> <%
+        }else{
+        session.setAttribute("usuario", usuario);
+%>      <script>swal ("Acceso correcto","Bienvenido al sistema","success");</script> <%    
+        }
+    }
+%>
 	
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="vendor/bootstrap/js/popper.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/sweetalert.min.js" type="text/javascript"></script>
+        <script src="js/validacion.js" type="text/javascript"></script>
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>

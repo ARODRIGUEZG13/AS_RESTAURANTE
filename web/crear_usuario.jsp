@@ -4,11 +4,14 @@
     Author     : Alex
 --%>
 
+<%@page import="Estructuras.CARGO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Consultas.Listas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Inicio de Sesion</title>
+	<title>Registrar usuario</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -38,7 +41,7 @@
 				<form class="login100-form validate-form">
 					
 					<span class="login100-form-title p-t-20 p-b-45">
-						REGISTRAR EMPLEADO
+						REGISTRAR USUARIO
 					</span>
 
                                         <div class="input-group">
@@ -78,9 +81,15 @@
                                             <div class="input-group-prepend">
                                                  <button type="button" class="btn btn-secondary" style="width: 180px;text-align: left">Cargo</button>
                                             </div>
+                                           <%
+                                            Listas lista = new Listas();
+                                            ArrayList<CARGO> vc = lista.ListaCargo();
+                                            %>
                                             <select class="form-control">
-                                                <option>hola</option>
-                                                <option>hola</option>
+                                                <option selected value="0">Seleccione el cargo a desempeñar</option>
+                                                <%for (CARGO c : vc){%>
+                                                <option value="<%=c.getID_CARGO()%>"><%=c.getNOMBRE()%></option>
+                                                <%}%>
                                             </select>
                                         </div>
                                         <span>&nbsp;</span>
@@ -90,15 +99,16 @@
                                                 <button type="button" class="btn btn-secondary" style="width: 180px;text-align: left">Es admin?</button>
                                             </div>
                                             <select class="form-control">
-                                                <option>No</option>
-                                                <option>Si</option>
+                                                <option selected value="">Conceda privilegios de administrador</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Si</option>
                                             </select>
                                         </div>
                                         <span>&nbsp;</span>
                                         
 					<div class="container-login100-form-btn p-t-10">
-						<button class="login100-form-btn">
-							Login
+                                            <button class="login100-form-btn" style="width: 30%">
+							Registrar
 						</button>
 					</div>
 
