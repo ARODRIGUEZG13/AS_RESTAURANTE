@@ -10,6 +10,10 @@
      <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio</title>  
+        
+        <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+        <!--===============================================================================================-->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
     </head>
     <body>
@@ -25,10 +29,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="MP_Cajero.jsp">   CAJA     </a>
+        <a class="nav-link" href="MP_Cajero.jsp" style="color: white">   CAJA     </a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
           MESAS
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -39,7 +43,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
           PAGO
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,7 +53,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
           CUADRE
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -60,8 +64,14 @@
         </div>
       </li>
     </ul>
+      <ul></ul><ul></ul><ul></ul>
+      <ul></ul><ul></ul><ul></ul>
+      <ul></ul><ul></ul><ul></ul>
+      <ul></ul><ul></ul><ul></ul>
+      <ul></ul><ul></ul><ul></ul>
+      <ul></ul><ul></ul>
       <form class="form-inline my-2 my-lg-0" method="POST">
-       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-success">Cerrar Sesion</a>
+       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</a>
     </form>
   </div>
 </nav>
