@@ -13,10 +13,10 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
     </head>
     <body>
-            <nav class="navbar navbar-expand-lg navbar navbar navbar-dark bg-dark">
-          <nav class="navbar navbar-dark bg-dark">
-         <a class="navbar-brand" href="#">
-        <img src="images/avatar-01.png" width="45" height="45" alt="">
+            <nav class="navbar navbar-expand-lg navbar" style="background-color: #ffc107;"> <!color del cuadro fondo>
+          <nav class="navbar" style="background-color: #ffc107;"> <!color del cuadro opciones>
+         <a class="navbar-brand" href="MP_Recepcion.jsp">
+        <img src="images/icons/recepcionista.png" width="45" height="45" alt="">
         </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">MENU PRINCIPAL DE RECEPCIONISTAS  </a>
+        <a class="nav-link" href="MP_Recepcion.jsp">   RECEPCIÓN </a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,7 +65,7 @@
       </li>
     </ul>
       <form class="form-inline my-2 my-lg-0" method="POST">
-       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-success">Cerrar Sesion</a>
+       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-danger">Cerrar Sesion</a>
     </form>
   </div>
 </nav>
