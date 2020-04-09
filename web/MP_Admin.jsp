@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 4/03/2020, 06:34:38 PM
+    Document   : MP_Cajero
+    Created on : 8/04/2020, 03:47:50 PM
     Author     : Alex
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>MENU PRINCIPAL DEL ADMINISTRADOR</h1>
     </body>
 </html>
