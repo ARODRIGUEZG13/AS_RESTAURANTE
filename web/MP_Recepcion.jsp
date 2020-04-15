@@ -4,6 +4,7 @@
     Author     : Alex
 --%>
 
+<%@page import="Consultas.CodigoHTML"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,10 +15,12 @@
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
+        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        
             <nav class="navbar navbar-expand-lg navbar" style="background-color: #ffc107;"> <!color del cuadro fondo>
-          <nav class="navbar" style="background-color: #ffc107;"> <!color del cuadro opciones>
+            <nav class="navbar" style="background-color: #ffc107;"> <!color del cuadro opciones>
          <a class="navbar-brand" href="MP_Recepcion.jsp">
         <img src="images/icons/recepcionista.png" width="45" height="45" alt="">
         </a>
@@ -78,6 +81,23 @@
     </form>
   </div>
 </nav>
+            </nav>
+        
+        <hr style="background: #ffc107"> 
+        <h3 style="text-align: center">CONTROL DE MESAS</h3>
+        <hr style="background: #ffc107">    
+        <section class="main container">
+            <div class="row">
+                <section class="post col-md-12">
+                <%CodigoHTML c = new CodigoHTML();
+                   if(c.getMesas()!=null){%>
+                   <%=new CodigoHTML().getMesas()%>
+                   <%}%>
+                </section>
+            </div>
+        </section>
+                
+                
          <script src="js/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
          <script src="js/popper.min.js" type="text/javascript"></script>
 
