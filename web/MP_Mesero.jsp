@@ -4,7 +4,17 @@
     Author     : Alex
 --%>
 
+<%@page import="Consultas.Buscar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion = request.getSession();
+    String usuario = "";
+    if (sesion.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+    }else{
+        usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
+    }
+%>
 <!DOCTYPE html>
 <html>
      <head>
@@ -13,7 +23,14 @@
         <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
+        <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
+        <!--===============================================================================================-->
+        <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
+        <!--===============================================================================================-->
+        
+        <!--===============================================================================================-->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">   
+        <!--===============================================================================================-->
     </head>
     <body>
             <nav class="navbar navbar-expand-lg navbar" style="background-color: #c82333;"> <!color del cuadro fondo>
@@ -28,7 +45,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-          <a class="nav-link" href="MP_Mesero.jsp" style="color: white">   MESAS   </a>
+          <a class="nav-link" href="MP_Mesero.jsp" style="color: white">   <%out.print(usuario);%>   </a>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
           MENÚS
@@ -69,7 +86,7 @@
       <ul></ul><ul></ul><ul></ul>
       <ul></ul><ul></ul><ul></ul>
       <ul></ul><ul></ul>
-      <form class="form-inline my-2 my-lg-0" method="POST">
+    <form class="form-inline my-2 my-lg-0" method="POST">
        <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</a>
     </form>
   </div>

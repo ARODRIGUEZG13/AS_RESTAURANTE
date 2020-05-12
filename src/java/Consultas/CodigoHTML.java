@@ -35,8 +35,8 @@ public class CodigoHTML  extends Conexion_consulta{
                 tipoBoton = "danger";
             }
             
-            htmlcode += "<button id=\"btnMesa\" class=\"btn btn-"+tipoBoton+"\">\n" +
-"                           <h1>"+mesa.getID_MESA()+"</h1><br>\n" +
+            htmlcode += "<button onclick=\"location.href=\'Rpn_Mesa_detalle.jsp?id="+mesa.getID_MESA()+"\'\" id=\"btnMesa\" class=\"btn btn-"+tipoBoton+"\">\n" +                          
+"                           <h1>"+mesa.getID_MESA()+"</h1><br>\n" +                  
 "                           <h5>"+estado+"</h5>\n" +
 "                        </button>\n&nbsp;";
             i++;

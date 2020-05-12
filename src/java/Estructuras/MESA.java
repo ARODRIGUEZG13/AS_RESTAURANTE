@@ -16,16 +16,18 @@ public class MESA {
     private int CAPACIDAD;
     private int ESTADO;
     private double SALDO;
+    private String CLIENTE;
 
     public MESA() {
     }
 
-    public MESA(String ID_MESA, String ID_USUARIO, int CAPACIDAD, int ESTADO, double SALDO) {
+    public MESA(String ID_MESA, String ID_USUARIO, int CAPACIDAD, int ESTADO, double SALDO, String CLIENTE) {
         this.ID_MESA = ID_MESA;
         this.ID_USUARIO = ID_USUARIO;
         this.CAPACIDAD = CAPACIDAD;
         this.ESTADO = ESTADO;
         this.SALDO = SALDO;
+        this.CLIENTE = CLIENTE;
     }
 
     public String getID_MESA() {
@@ -67,7 +69,12 @@ public class MESA {
     public void setSALDO(double SALDO) {
         this.SALDO = SALDO;
     }
-    
-    
-    
+
+    public String getCLIENTE() {
+        return CLIENTE;
+    }
+
+    public void setCLIENTE(String CLIENTE) {
+        this.CLIENTE = CLIENTE;
+    }
 }

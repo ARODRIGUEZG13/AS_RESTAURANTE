@@ -1,19 +1,33 @@
 <%-- 
-    Document   : MP_Cajero
-    Created on : 8/04/2020, 03:47:50 PM
+    Document   : Rpn_Mesa_detalle
+    Created on : 11/05/2020, 06:58:31 PM
     Author     : Alex
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="Consultas.Buscar"%>
 <%@page import="Consultas.CodigoHTML"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesion = request.getSession();
+    DecimalFormat convertir = new DecimalFormat("###,###,###.00");
     String usuario = "";
     if (sesion.getAttribute("usuario") == null) {
         response.sendRedirect("login.jsp");
     }else{
         usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
+    }
+    String Id_Mesa = (String) request.getParameter("id");
+    String Id_Mesero = "",cliente="", status=""; int capacidad=0,estado=0; double saldo=0;
+    if(Id_Mesa != null){
+        Id_Mesero = new Buscar().mesa(Id_Mesa).getID_USUARIO();
+        cliente = new Buscar().mesa(Id_Mesa).getCLIENTE();
+        if(cliente==null){cliente="Sin asignar";}
+        capacidad = new Buscar().mesa(Id_Mesa).getCAPACIDAD();
+        estado = new Buscar().mesa(Id_Mesa).getESTADO();
+        if(estado==0){status="Disponible";}else if(estado==1){
+        status="Por desocupar";}else{status="No disponible";}
+        saldo = new Buscar().mesa(Id_Mesa).getSALDO();
     }
 %>
 <!DOCTYPE html>
@@ -94,16 +108,68 @@
             </nav>
         
         <hr style="background: #ffc107"> 
-        <h3 style="text-align: center">RECEPCION Y CONTROL DE MESAS</h3>
-        <hr style="background: #ffc107">    
+        <h3 style="text-align: center">DETALLES DE MESA</h3>
+        <hr style="background: #ffc107">
+        <br>
         <section class="main container">
             <div class="row">
-                <section class="post col-md-12">
-                <%CodigoHTML c = new CodigoHTML();
-                   if(c.getMesas()!=null){%>
-                   <%=new CodigoHTML().getMesas()%>
-                   <%}%>
+                <section class="post col-md-2"></section>
+                <section class="post col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Mesa: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="<%out.print(Id_Mesa);%>"> 
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Mesero: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="<%out.print(new Buscar().usuario(Id_Mesero).getUSUARIO());%>"> 
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Estado: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="<%out.print(status);%>"> 
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Capacidad: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="<%out.print(capacidad);%> personas"> 
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Saldo: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="Q.<%out.print(convertir.format(saldo));%>"> 
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Cliente: </button>
+                        </div>
+                        <input type="text" class="form-control" id="txtMesero" disabled
+                               value="<%out.print(cliente);%>"> 
+                    </div>
+                    <br>
+                    <center>
+                        <button type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
+                            Asignar
+                        </button>
+                    </center>
                 </section>
+                <section class="post col-md-2"></section>
             </div>
         </section>
                 

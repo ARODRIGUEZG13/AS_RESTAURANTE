@@ -62,7 +62,8 @@ public class Listas extends Conexion_consulta{
                             rs.getString("ID_USUARIO"),
                             rs.getInt("CAPACIDAD"),
                             rs.getInt("ESTADO"),
-                            rs.getDouble("SALDO"));
+                            rs.getDouble("SALDO"),
+                            rs.getString("CLIENTE"));
                     vista.add(m);
                 }
                 conectar().close();

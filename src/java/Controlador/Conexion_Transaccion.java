@@ -11,10 +11,10 @@ public class Conexion_Transaccion {
     private Connection con;
     private String Username = "US_TRANSACCION";
     private String Password = "k3YxMSw4oG5ftlQ";
-    private String Puerto   = "1521";
-    private String Hostname = "@db-restaurante.cst6mnzu82my.us-east-2.rds.amazonaws.com";
+    private String Puerto   = "1539";
+    private String Hostname = "@192.168.56.5";
     private String Clasname = "oracle.jdbc.driver.OracleDriver";
-    private String URL = "jdbc:oracle:thin:"+Hostname+":"+Puerto+":ORCL";
+    private String URL = "jdbc:oracle:thin:"+Hostname+":"+Puerto+":XE";
     Statement st = null;
     
     public Conexion_Transaccion()

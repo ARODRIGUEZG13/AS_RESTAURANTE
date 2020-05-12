@@ -4,7 +4,17 @@
     Author     : Alex
 --%>
 
+<%@page import="Consultas.Buscar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion = request.getSession();
+    String usuario = "";
+    if (sesion.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+    }else{
+        usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
+    }
+%>
 <!DOCTYPE html>
 <html>
      <head>
@@ -29,7 +39,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="MP_Cajero.jsp" style="color: white">   CAJA     </a>
+        <a class="nav-link" href="MP_Cajero.jsp" style="color: white"> <%out.print(usuario);%>  </a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">

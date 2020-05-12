@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+HttpSession sesion = request.getSession();
+if (request.getParameter("cerrar") != null) {
+    sesion.invalidate();
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
