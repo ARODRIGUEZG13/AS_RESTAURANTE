@@ -105,4 +105,43 @@ $(function (){
         }
     });
     
+    // FUNCION PARA VALIDACION EN Rpn_Mesa_detalle.jsp usuarios para mesa------------------------------------
+    //-------------------------------------------------------------------------------------------------------
+    $('#btnAsignarMesa').click(function(){
+        
+        var IdMesa = document.getElementById("txtId_Mesa").value;
+        var IdMesero = document.getElementById("txtId_Mesero").value;
+        var Estado = document.getElementById("txtEstado").value;
+        var Capacidad = document.getElementById("txtCapacidad").value;
+        var Saldo = document.getElementById("txtSaldo").value;
+        var Cliente = document.getElementById("txtCliente").value;
+        
+        if(IdMesero===""){
+            alert("Debe seleccionar un mesero");
+            document.getElementById("txtId_Mesero").focus();
+            return false;
+        }else if(Cliente===""){
+            alert("Debe ingresar el nombre del cliente");
+            document.getElementById("txtCliente").focus();
+            return false;
+        }
+        //alert(IdMesa+" "+IdMesero+" "+Estado+" "+Capacidad+" "+Saldo+" "+Cliente);
+        $.ajax({
+            url: 'Asignar_Mesero',
+            type: 'POST',
+            data: {txtIdMesa:IdMesa,txtIdMesero:IdMesero,txtEstado:Estado,txtCapacidad:Capacidad,txtSaldo:Saldo,txtCliente:Cliente},
+            success: function (r){
+                if(r==="true"){
+                        swal("Listo","El cliente pude pasar a la mesa","success");
+                }else if(r==="false"){
+                        swal("Error","No se pudo asignar la mesa","error");
+                }
+            }
+        });
+    });
+    
+    // FUNCION PARA VALIDACION EN MP_Mesero.jsp nuevo pedido -----------------------------------------------
+    //-------------------------------------------------------------------------------------------------------
+    
+    
 });

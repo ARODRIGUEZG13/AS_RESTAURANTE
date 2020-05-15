@@ -8,6 +8,10 @@
         <servlet-name>Crear_usuario</servlet-name>
         <servlet-class>Servlets.Crear_usuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarMesa</servlet-name>
+        <servlet-class>Servlets.ModificarMesa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Autenticacion</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Crear_usuario</servlet-name>
         <url-pattern>/Registrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarMesa</servlet-name>
+        <url-pattern>/Asignar_Mesero</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

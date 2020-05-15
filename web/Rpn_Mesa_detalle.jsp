@@ -4,6 +4,9 @@
     Author     : Alex
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Estructuras.USUARIO"%>
+<%@page import="Consultas.Listas"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="Consultas.Buscar"%>
 <%@page import="Consultas.CodigoHTML"%>
@@ -22,7 +25,6 @@
     if(Id_Mesa != null){
         Id_Mesero = new Buscar().mesa(Id_Mesa).getID_USUARIO();
         cliente = new Buscar().mesa(Id_Mesa).getCLIENTE();
-        if(cliente==null){cliente="Sin asignar";}
         capacidad = new Buscar().mesa(Id_Mesa).getCAPACIDAD();
         estado = new Buscar().mesa(Id_Mesa).getESTADO();
         if(estado==0){status="Disponible";}else if(estado==1){
@@ -119,7 +121,7 @@
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Mesa: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
+                        <input type="text" class="form-control" id="txtId_Mesa" disabled
                                value="<%out.print(Id_Mesa);%>"> 
                     </div>
                     <br>
@@ -127,15 +129,27 @@
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Mesero: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
-                               value="<%out.print(new Buscar().usuario(Id_Mesero).getUSUARIO());%>"> 
+                        <%
+                        Listas lista = new Listas();
+                        ArrayList<USUARIO> vu = lista.ListaUsuariosParaMesa();
+                        if(Id_Mesero.equals("MSO-2")){%>
+                        <select class="form-control" id="txtId_Mesero">
+                            <option selected value="">Seleccionar mesero</option>
+                            <%for (USUARIO u : vu){%>
+                             <option value="<%=u.getID_USUARIO()%>"><%out.print(u.getNOMBRES()+" "+u.getAPELLIDOS());%></option>
+                            <%}%>
+                        </select>
+                        <%}else{%>
+                            <input type="text" class="form-control" id="txtId_Mesero" disabled
+                               value="<%out.print(new Buscar().usuario(Id_Mesero).getUSUARIO());%>">
+                        <%}%>
                     </div>
                     <br>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Estado: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
+                        <input type="text" class="form-control" disabled id="txtEstado"
                                value="<%out.print(status);%>"> 
                     </div>
                     <br>
@@ -143,30 +157,41 @@
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Capacidad: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
-                               value="<%out.print(capacidad);%> personas"> 
+                        <input type="text" class="form-control" disabled
+                               value="<%out.print(capacidad);%> personas">
+                        <input type="text" id="txtCapacidad" hidden="" value="<%out.print(capacidad);%>">
                     </div>
                     <br>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Saldo: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
-                               value="Q.<%out.print(convertir.format(saldo));%>"> 
+                        <input type="text" class="form-control" disabled id="txtSaldo"
+                               value="<%out.print(convertir.format(saldo));%>"> 
                     </div>
                     <br>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Cliente: </button>
                         </div>
-                        <input type="text" class="form-control" id="txtMesero" disabled
-                               value="<%out.print(cliente);%>"> 
+                        <%if(cliente!=null){%>
+                        <input type="text" class="form-control" disabled id="txtCliente"
+                               value="<%out.print(cliente);%>">
+                        <%}else{%>
+                        <input type="text" class="form-control" id="txtCliente" placeholder="Ingrese el nombre del cliente">
+                        <%}%>
                     </div>
                     <br>
                     <center>
-                        <button type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
+                        <%if(Id_Mesero.equals("MSO-2")){%>
+                        <button id="btnAsignarMesa" type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
                             Asignar
                         </button>
+                        <%}else{%>
+                        <button disabled="" type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
+                            Asignar
+                        </button>
+                        <%}%>
                     </center>
                 </section>
                 <section class="post col-md-2"></section>
@@ -174,10 +199,11 @@
         </section>
                 
                 
-         <script src="js/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
-         <script src="js/popper.min.js" type="text/javascript"></script>
-
-        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="vendor/bootstrap/js/popper.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/sweetalert.min.js" type="text/javascript"></script>
+        <script src="js/validacion.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
 </html>

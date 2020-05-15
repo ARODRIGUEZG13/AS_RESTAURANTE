@@ -8,6 +8,7 @@ package Consultas;
 import Controlador.Conexion_consulta;
 import Estructuras.CARGO;
 import Estructuras.MESA;
+import Estructuras.USUARIO;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -75,9 +76,68 @@ public class Listas extends Conexion_consulta{
             }
     }
     
+        public ArrayList<MESA> ListaMesasAsignadas(String id_usuario){
+        
+        ArrayList<MESA> vista = new ArrayList<MESA>();
+        MESA m = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("SELECT * FROM EMPRESA.MESA where ID_USUARIO='"+id_usuario+"'");
+                while (rs.next()) {                
+
+                    m = new MESA(rs.getString("ID_MESA"),
+                            rs.getString("ID_USUARIO"),
+                            rs.getInt("CAPACIDAD"),
+                            rs.getInt("ESTADO"),
+                            rs.getDouble("SALDO"),
+                            rs.getString("CLIENTE"));
+                    vista.add(m);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
+    
+     public ArrayList<USUARIO> ListaUsuariosParaMesa(){
+        
+        ArrayList<USUARIO> vista = new ArrayList<USUARIO>();
+        USUARIO u = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("SELECT * from empresa.usuario where empresa.FN_CONTAR_MESAS_USUARIO(id_usuario)<4 "+
+                        "AND id_usuario!='MSO-2' AND id_cargo='MSO'");
+                while (rs.next()) {                
+
+                    u = new USUARIO(rs.getString("ID_USUARIO"),
+                            rs.getString("ID_CARGO"),
+                            rs.getString("NOMBRES"),
+                            rs.getString("APELLIDOS"),
+                            rs.getString("USUARIO"),"",
+                            rs.getInt("ES_ADMIN"));
+                    vista.add(u);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
+    
 //    public static void main(String[] args) {
 //        Listas l = new Listas();
-//        System.out.println(l.ListaMesa());
+//        System.out.println(l.ListaMesasAsignadas("MSO-5"));
 //    }
     
 }
