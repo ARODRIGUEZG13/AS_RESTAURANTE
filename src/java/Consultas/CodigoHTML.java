@@ -6,6 +6,7 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.MENU;
 import Estructuras.MESA;
 
 /**
@@ -74,8 +75,74 @@ public class CodigoHTML  extends Conexion_consulta{
         return htmlcode;
     }
     
+    public String getMenus(){
+        String htmlcode = "";
+        Listas l = new Listas();
+        for(MENU menu : l.ListaMenus()){
+            htmlcode += "<article class=\"card card-product\" style=\"width: 100%\">\n" +
+"                                    <div class=\"card-body\">\n" +
+"                                    <div class=\"row\">\n" +
+"                                            <aside class=\"col-sm-3\">\n" +
+"                                                <div class=\"img-wrap\"> <img src=\""+menu.getURL()+"\"/> </div>\n" +
+"                                            </aside> <!-- col.// -->\n" +
+"                                            <article class=\"col-sm-6\">\n" +
+"                                                    <h4 class=\"title\"> "+menu.getNOMBRE()+"  </h4>\n" +
+"                                                    <p> "+menu.getDESCRIPCION()+"</p><br>\n" +
+"                                                    <div class=\"price-wrap h4\">\n" +
+"                                                        <span class=\"price\"> Q"+menu.getPRECIO()+"</span>	\n" +
+"                                                    </div> <!-- info-price-detail // -->\n" +
+"                                            </article> <!-- col.// -->\n" +
+"                                            <aside class=\"col-sm-3 border-left\" >  \n" +
+"                                                <div class=\"action-wrap\" style=\"align-items: center\">\n" +
+"                                                            <br>\n" +
+"                                                            <br>\n" +
+"                                                            <br>\n" +
+"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?id="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
+"                                                    </div> <!-- action-wrap.// -->\n" +
+"                                            </aside> <!-- col.// -->\n" +
+"                                    </div> <!-- row.// -->\n" +
+"                                    </div> \n" +
+"                            </article>";
+        }
+    
+    return htmlcode;
+    }
+    
+    public String getMenusPorCategoria(String categoria){
+        String htmlcode = "";
+        Listas l = new Listas();
+        for(MENU menu : l.ListaMenusCategoria(categoria)){
+            htmlcode += "<article class=\"card card-product\" style=\"width: 100%\">\n" +
+"                                    <div class=\"card-body\">\n" +
+"                                    <div class=\"row\">\n" +
+"                                            <aside class=\"col-sm-3\">\n" +
+"                                                <div class=\"img-wrap\"> <img src=\""+menu.getURL()+"\"/> </div>\n" +
+"                                            </aside> <!-- col.// -->\n" +
+"                                            <article class=\"col-sm-6\">\n" +
+"                                                    <h4 class=\"title\"> "+menu.getNOMBRE()+"  </h4>\n" +
+"                                                    <p> "+menu.getDESCRIPCION()+"</p><br>\n" +
+"                                                    <div class=\"price-wrap h4\">\n" +
+"                                                        <span class=\"price\"> Q"+menu.getPRECIO()+"</span>	\n" +
+"                                                    </div> <!-- info-price-detail // -->\n" +
+"                                            </article> <!-- col.// -->\n" +
+"                                            <aside class=\"col-sm-3 border-left\" >  \n" +
+"                                                <div class=\"action-wrap\" style=\"align-items: center\">\n" +
+"                                                            <br>\n" +
+"                                                            <br>\n" +
+"                                                            <br>\n" +
+"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?id="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
+"                                                    </div> <!-- action-wrap.// -->\n" +
+"                                            </aside> <!-- col.// -->\n" +
+"                                    </div> <!-- row.// -->\n" +
+"                                    </div> \n" +
+"                            </article>";
+        }
+    
+    return htmlcode;
+    }
+    
 //    public static void main(String[] args) {
-//        System.out.println(new CodigoHTML().getMesasAsignadas("MSO-5"));
+//        System.out.println(new CodigoHTML().getMenus());
 //        
 //    }
 }

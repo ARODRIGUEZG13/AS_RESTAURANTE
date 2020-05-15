@@ -140,8 +140,36 @@ $(function (){
         });
     });
     
-    // FUNCION PARA VALIDACION EN MP_Mesero.jsp nuevo pedido -----------------------------------------------
+    // FUNCION PARA VALIDACION EN MSO_detalle_producto.jsp añadiendo prodcuto al pedido----------------------
     //-------------------------------------------------------------------------------------------------------
+    $('#btnMin').click(function (){
+        var cantidad = document.getElementById("txtCantidad").value;
+        var total = document.getElementById("txtTotal").value;
+        var precio = document.getElementById("txtPrecio").value;
+        if(parseInt(cantidad)>1){
+            cantidad = parseInt(cantidad) - 1;
+            total = parseFloat(precio)*cantidad;
+            document.getElementById("txtCantidad").value=cantidad;
+            document.getElementById("txtTotal").value=total;
+        }
+    });
     
+    $('#btnPlus').click(function (){
+        var cantidad = document.getElementById("txtCantidad").value;
+        var total = document.getElementById("txtTotal").value;
+        var precio = document.getElementById("txtPrecio").value;
+        cantidad = parseInt(cantidad)+1;
+        total = parseFloat(precio)*cantidad;
+        document.getElementById("txtCantidad").value=cantidad;
+        document.getElementById("txtTotal").value=total;
+    });
+    
+    $('#btnAñadirPedido').click(function () {
+        
+        var cantidad = document.getElementById("txtCantidad").value;
+        var IdMenu = document.getElementById("txtIdMenu").value;
+        alert(IdMenu+" "+cantidad);
+        
+    });
     
 });

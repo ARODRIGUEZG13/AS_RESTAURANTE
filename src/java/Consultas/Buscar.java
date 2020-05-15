@@ -6,6 +6,7 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.MENU;
 import Estructuras.MESA;
 import Estructuras.USUARIO;
 import java.sql.ResultSet;
@@ -98,9 +99,32 @@ public class Buscar extends Conexion_consulta{
           return null;
         }
     }
+    public MENU menu (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.MENU WHERE ID_MENU='"+id+"'";
+        MENU m = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                m = new MENU(rs.getString("ID_MENU"),
+                            rs.getString("ID_CATEGORIA"),
+                            rs.getString("NOMBRE"),
+                            rs.getString("DESCRIPCION"),
+                            rs.getDouble("PRECIO"),
+                            rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return m;
+        } catch (Exception e) {
+          return null;
+        }
+    }
     
 //    public static void main(String[] args) {
-//        System.out.println(new Buscar().mesa("M-01").getCLIENTE());
+//        System.out.println(new Buscar().menu("B-1").getNOMBRE());
 //    }
     
 }

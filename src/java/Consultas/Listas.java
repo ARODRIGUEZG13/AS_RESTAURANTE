@@ -7,6 +7,7 @@ package Consultas;
 
 import Controlador.Conexion_consulta;
 import Estructuras.CARGO;
+import Estructuras.MENU;
 import Estructuras.MESA;
 import Estructuras.USUARIO;
 import java.sql.ResultSet;
@@ -134,10 +135,68 @@ public class Listas extends Conexion_consulta{
                 return null;
             }
     }
+     
+    public ArrayList<MENU> ListaMenus(){
+        
+        ArrayList<MENU> vista = new ArrayList<MENU>();
+        MENU m = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("SELECT * from empresa.MENU");
+                while (rs.next()) {                
+
+                    m = new MENU(rs.getString("ID_MENU"),
+                            rs.getString("ID_CATEGORIA"),
+                            rs.getString("NOMBRE"),
+                            rs.getString("DESCRIPCION"),
+                            rs.getDouble("PRECIO"),
+                            rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
+                    vista.add(m);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
+
+    public ArrayList<MENU> ListaMenusCategoria(String categoria){
+        
+        ArrayList<MENU> vista = new ArrayList<MENU>();
+        MENU m = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("SELECT * from empresa.MENU where ID_CATEGORIA='"+categoria+"'");
+                while (rs.next()) {                
+
+                    m = new MENU(rs.getString("ID_MENU"),
+                            rs.getString("ID_CATEGORIA"),
+                            rs.getString("NOMBRE"),
+                            rs.getString("DESCRIPCION"),
+                            rs.getDouble("PRECIO"),
+                            rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
+                    vista.add(m);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
     
 //    public static void main(String[] args) {
 //        Listas l = new Listas();
-//        System.out.println(l.ListaMesasAsignadas("MSO-5"));
+//        System.out.println(l.ListaMenus());
 //    }
     
 }

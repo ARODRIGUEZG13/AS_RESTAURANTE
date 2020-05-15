@@ -1,12 +1,6 @@
 <%-- 
-    Document   : MSO_nuevo_pedido
-    Created on : 14/05/2020, 07:17:28 PM
-    Author     : Alex
---%>
-
-<%-- 
-    Document   : MP_Cajero
-    Created on : 8/04/2020, 03:47:50 PM
+    Document   : MSO_detalle_producto
+    Created on : 14/05/2020, 11:47:03 PM
     Author     : Alex
 --%>
 
@@ -21,25 +15,20 @@
     }else{
         usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
     }
-    
-    String categoria = (String) request.getParameter("categoria");
 %>
 <!DOCTYPE html>
 <html>
      <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nuevo Pedido</title>  
+        <title>Agregando al pedido</title>  
         <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min_1.js" type="text/javascript"></script>
-         <!--===============================================================================================-->
         <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
         <!--===============================================================================================-->
         <link href="css/ui.css" rel="stylesheet" type="text/css"/>
         <!--===============================================================================================-->
-        <script src="plugins/fancybox/fancybox.min.js" type="text/javascript"></script>
-        <link href="plugins/fancybox/fancybox.min.css" type="text/css" rel="stylesheet">
+        
         <!--===============================================================================================-->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">   
         <!--===============================================================================================-->
@@ -103,69 +92,45 @@
     </form>
   </div>
 </nav></nav>
+        <hr style="background: #c82333">         
+        <h3 style="text-align: center"><%out.print("Producto: "+(String)request.getParameter("id"));%></h3>
+        <hr style="background: #c82333">
+        <br>
         
-      
-        <section class="section-content bg padding-y">
-            <div class="container">
-                <div class="row">
-                    <aside class="col-sm-3">
-                        <div class="card card-filter">
-                            <article class="card-group-item">
-                                <header class="card-header">
-                                    <a class="" aria-expanded="true" href="#" data-toggle="collapse" data-target="#collapse22">
-                                        <i class="icon-action fa fa-chevron-down"></i>
-                                        <h6 class="title">Categorias</h6>
-                                    </a>
-                                </header>
-                                <div style="" class="filter-content collapse show" id="collapse22">
-                                    <div class="card-body">
-                                        <form class="pb-3">
-                                            <div class="input-group">
-                                                <input class="form-control" placeholder="Buscar" type="text">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                        <ul class="list-unstyled list-lg">
-
-                                            <li><a href="MSO_nuevo_pedido.jsp">Todos <span class="float-right badge badge-light round"></span> </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=C">Combos <span class="float-right badge badge-light round"></span> </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=B">Bebidas<span class="float-right badge badge-light round"></span>  </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=P">Postres<span class="float-right badge badge-light round"></span>  </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=CM">Complementos<span class="float-right badge badge-light round"></span>  </a></li>
-                                        </ul>  
-                                    </div> <!-- card-body.// -->
-                                </div> <!-- collapse .// -->
-                            </article> <!-- card-group-item.// -->
-                        </div> <!-- card.// -->
-                    </aside> <!-- col.// -->
-
-                    <!-- CARGAR PRODUCTOS ITEMS -->
-                    <main class="col-sm-9">
-                        <div class="row">
-                           
-                            <%if((String) request.getParameter("categoria")==null){
-                                out.print(new CodigoHTML().getMenus());
-                            }else if("C".equals((String) request.getParameter("categoria"))){
-                                out.print(new CodigoHTML().getMenusPorCategoria("C"));    
-                            }else if("B".equals((String) request.getParameter("categoria"))){
-                                out.print(new CodigoHTML().getMenusPorCategoria("B"));
-                            }else if("P".equals((String) request.getParameter("categoria"))){  
-                                out.print(new CodigoHTML().getMenusPorCategoria("P"));
-                            }else if("CM".equals((String) request.getParameter("categoria"))){  
-                                out.print(new CodigoHTML().getMenusPorCategoria("CM"));
-                            }%>
+        <section class="main container">
+            <div class="row">
+                <section class="post col-md-6">
+                    <center><br><br>
+                    <img src="<%out.print(new Buscar().menu((String)request.getParameter("id")).getURL());%>" style="width: 75%">
+                    </center>
+                </section>
+                    <section class="post col-md-6">
+                        <br>
+                        <div class="input-group">
+                            <button type="button" id="btnMin" class="btn btn-danger">-</button>
+                            <input type="text" id="txtCantidad" disabled value="1" style="width: 50px; text-align: center">
+                            <button type="button" id="btnPlus" class="btn btn-danger">+</button>
                         </div>
-                    </main>
-                    <!--  FIN DE CARGAR PRODUCTOS ITEMS -->
-
-
-
-                </div>
-
-            </div> <!-- container .//  -->
+                         <br>
+                        <b>Precio por unidad:</b>
+                        <br>
+                        <input type="text" class="form-control" id="txtPrecio" value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getPRECIO());%>" disabled>
+                        <br>
+                        <b>Producto:</b>
+                        <br>
+                        <input class="form-control" type="text" disabled value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getNOMBRE());%>"
+                        <br><br>
+                        <b>Total:</b>
+                        <input class="form-control" type="text" disabled id="txtTotal" value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getPRECIO());%>">
+                        <br><br>
+                        <input hidden type="text" id="txtIdMenu" value="<%out.print((String)request.getParameter("id"));%>"
+                        <center>
+                        <button id="btnAñadirPedido" type="button" class="btn btn-outline-danger" style="width: 400px; height: 50px;">
+                            Añadir al Pedido
+                        </button>
+                        </center>
+                    </section>
+            </div>
         </section>
       
       
