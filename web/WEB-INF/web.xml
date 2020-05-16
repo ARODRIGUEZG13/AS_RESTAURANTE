@@ -12,6 +12,18 @@
         <servlet-name>ModificarMesa</servlet-name>
         <servlet-class>Servlets.ModificarMesa</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Pedido_detalle</servlet-name>
+        <servlet-class>Servlets.Pedido_detalle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TerminarPedido</servlet-name>
+        <servlet-class>Servlets.TerminarPedido</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <servlet-class>Servlets.CambiarEstadoPedido</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Autenticacion</url-pattern>
@@ -23,6 +35,18 @@
     <servlet-mapping>
         <servlet-name>ModificarMesa</servlet-name>
         <url-pattern>/Asignar_Mesero</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Pedido_detalle</servlet-name>
+        <url-pattern>/Add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TerminarPedido</servlet-name>
+        <url-pattern>/Crear_pedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <url-pattern>/Despachar_pedido</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

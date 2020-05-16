@@ -9,6 +9,8 @@ import Controlador.Conexion_consulta;
 import Estructuras.CARGO;
 import Estructuras.MENU;
 import Estructuras.MESA;
+import Estructuras.PEDIDO;
+import Estructuras.PEDIDO_DETALLE;
 import Estructuras.USUARIO;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -194,9 +196,62 @@ public class Listas extends Conexion_consulta{
             }
     }
     
+    public ArrayList<PEDIDO> ListaPedidosPorDespachar(){
+        
+        ArrayList<PEDIDO> vista = new ArrayList<PEDIDO>();
+        PEDIDO p = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("select ID_PEDIDO,ID_MESA,ID_USUARIO,ESTADO,TO_CHAR(HORA_PEDIDO,'HH24:MI:SS')HORA FROM  EMPRESA.PEDIDO WHERE ESTADO=0 ORDER BY HORA");
+                while (rs.next()) {                
+                    
+                    p = new PEDIDO(
+                            rs.getString("ID_PEDIDO"),
+                            rs.getString("ID_MESA"),
+                            rs.getString("ID_USUARIO"),
+                            rs.getInt("ESTADO"),
+                            rs.getString("HORA"));
+                    vista.add(p);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
+    
+        public ArrayList<PEDIDO_DETALLE> ListaPedidoDetalle(String id){
+        
+        ArrayList<PEDIDO_DETALLE> vista = new ArrayList<PEDIDO_DETALLE>();
+        PEDIDO_DETALLE p = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("select * from EMPRESA.PEDIDO_DETALLE WHERE ID_PEDIDO='"+id+"' ORDER BY ID_DETALLE");
+                while (rs.next()) {                
+                    
+                    p = new PEDIDO_DETALLE(rs.getString("ID_PEDIDO"), rs.getString("ID_DETALLE"),
+                            rs.getString("ID_MENU"), rs.getInt("CANTIDAD"));
+                    vista.add(p);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
 //    public static void main(String[] args) {
 //        Listas l = new Listas();
-//        System.out.println(l.ListaMenus());
+//        System.out.println(l.ListaPedidoDetalle("PDO-1"));
 //    }
     
 }

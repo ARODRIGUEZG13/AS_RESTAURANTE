@@ -93,7 +93,7 @@
   </div>
 </nav></nav>
         <hr style="background: #c82333">         
-        <h3 style="text-align: center"><%out.print("Producto: "+(String)request.getParameter("id"));%></h3>
+        <h3 style="text-align: center"><%out.print("Producto: "+(String)request.getParameter("IdMenu"));%></h3>
         <hr style="background: #c82333">
         <br>
         
@@ -101,7 +101,7 @@
             <div class="row">
                 <section class="post col-md-6">
                     <center><br><br>
-                    <img src="<%out.print(new Buscar().menu((String)request.getParameter("id")).getURL());%>" style="width: 75%">
+                    <img src="<%out.print(new Buscar().menu((String)request.getParameter("IdMenu")).getURL());%>" style="width: 75%">
                     </center>
                 </section>
                     <section class="post col-md-6">
@@ -114,16 +114,17 @@
                          <br>
                         <b>Precio por unidad:</b>
                         <br>
-                        <input type="text" class="form-control" id="txtPrecio" value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getPRECIO());%>" disabled>
+                        <input type="text" class="form-control" id="txtPrecio" value="<%out.print(new Buscar().menu((String)request.getParameter("IdMenu")).getPRECIO());%>" disabled>
                         <br>
                         <b>Producto:</b>
                         <br>
-                        <input class="form-control" type="text" disabled value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getNOMBRE());%>"
+                        <input class="form-control" type="text" disabled value="<%out.print(new Buscar().menu((String)request.getParameter("IdMenu")).getNOMBRE());%>"
                         <br><br>
                         <b>Total:</b>
-                        <input class="form-control" type="text" disabled id="txtTotal" value="<%out.print(new Buscar().menu((String)request.getParameter("id")).getPRECIO());%>">
+                        <input class="form-control" type="text" disabled id="txtTotal" value="<%out.print(new Buscar().menu((String)request.getParameter("IdMenu")).getPRECIO());%>">
                         <br><br>
-                        <input hidden type="text" id="txtIdMenu" value="<%out.print((String)request.getParameter("id"));%>"
+                        <input hidden type="text" id="txtIdMenu" value="<%out.print((String)request.getParameter("IdMenu"));%>">
+                        <input hidden type="text" id="txtIdMesa" value="<%out.print((String)request.getParameter("IdMesa"));%>">
                         <center>
                         <button id="btnAñadirPedido" type="button" class="btn btn-outline-danger" style="width: 400px; height: 50px;">
                             Añadir al Pedido

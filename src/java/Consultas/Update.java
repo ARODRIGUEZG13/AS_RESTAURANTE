@@ -7,6 +7,7 @@ package Consultas;
 
 import Controlador.Conexion_Transaccion;
 import Estructuras.MESA;
+import Estructuras.PEDIDO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,5 +38,24 @@ public class Update extends Conexion_Transaccion{
         } catch (SQLException e) {
                return false;
         }
+    }
+    
+    public boolean EstadoPedido (String id){
+        st = null;
+        sql = "UPDATE EMPRESA.pedido SET ESTADO=1 WHERE ID_PEDIDO='"+id+"'";
+        try {
+            st = conectar().createStatement();
+            st.executeUpdate(sql);
+            st.close();
+            conectar().commit();
+            conectar().close();
+            return true;
+        } catch (SQLException e) {
+               return false;
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new Update().EstadoPedido("PDO-1"));
     }
 }

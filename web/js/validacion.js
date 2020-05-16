@@ -36,6 +36,8 @@ $(function (){
                         location.href = "MP_Recepcion.jsp";
                     }else if(r==="ADS"){
                         location.href = "MP_Admin.jsp";
+                    }else if(r==="CNO"){
+                        location.href = "MP_Cocinero.jsp";
                     }
                 }
             }
@@ -165,11 +167,90 @@ $(function (){
     });
     
     $('#btnAñadirPedido').click(function () {
-        
+        var IdMesa = document.getElementById("txtIdMesa").value;
         var cantidad = document.getElementById("txtCantidad").value;
         var IdMenu = document.getElementById("txtIdMenu").value;
-        alert(IdMenu+" "+cantidad);
+        if(cantidad===""){
+            alert("no hay cantidad");
+            return false;
+        }else if(IdMenu===""){
+            alert("no hay menu");
+            return false;
+        }
         
+        $.ajax({
+            url: 'Add',
+            type: 'POST',
+            data: {txtIdMenu:IdMenu,txtCantidad:cantidad},
+            success: function (r) {
+                location.href = "MSO_Pedido.jsp?IdMesa="+IdMesa;
+            }
+        });  
     });
     
+    // FUNCION PARA VALIDACION EN MSO_pedido.jsp crear el pedido---------------------------------------------
+    //-------------------------------------------------------------------------------------------------------
+    $('#btnTerminarPedido').click(function(){
+        
+        var IdMesa = document.getElementById("txtIdMesa").value;
+        var IdMesero = document.getElementById("txtIdMesero").value;
+        
+        swal({
+              title: "Esta seguro de terminar el pedido?",
+              text: "Al finalizar el pedido no podra modificarlo ...",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                $.ajax({
+                    url: 'Crear_pedido',
+                    type: 'POST',
+                    data: {txtIdMesa:IdMesa,txtIdMesero:IdMesero},
+                    success: function (r) {
+                        if(r!==null){
+                        if(r==="true"){
+                            swal("Su pedido fue enviado a cocina", {
+                            icon: "success"
+                            });
+                        }else if(r==="false"){
+                            swal("No fue posible crear el pedido", {
+                            icon: "error"
+                            });
+                            }
+                        }else{
+                            swal("devolvio null", {
+                            icon: "error"
+                            });
+                            }
+                        }
+                });  
+              } else {
+                swal("Puedes seguir modificando el pedido ...");
+              }
+            });
+    });
+    
+    // FUNCION PARA VALIDACION EN CNO_Despachar.jsp Despachando pedidos -------------------------------------
+    //-------------------------------------------------------------------------------------------------------
+    
+    $('#btnDespacharPedido').click(function (){
+        
+        var IdPedido = document.getElementById("txtIdPedido").value;
+        $.ajax({
+            url: 'Despachar_pedido',
+            type: 'POST',
+            data: {txtIdPedido:IdPedido},
+            success: function (r) {
+                if(r==="true"){
+                    location.href="MP_Cocinero.jsp?action=true";
+                }else if(r==="false"){
+                    swal("Error","No se pudo despachar ...","error");
+                }
+            }
+        });
+        
+        
+    });
 });

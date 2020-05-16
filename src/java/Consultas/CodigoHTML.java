@@ -8,6 +8,7 @@ package Consultas;
 import Controlador.Conexion_consulta;
 import Estructuras.MENU;
 import Estructuras.MESA;
+import Estructuras.PEDIDO;
 
 /**
  *
@@ -61,12 +62,12 @@ public class CodigoHTML  extends Conexion_consulta{
 "                          <td>"+mesa.getCLIENTE()+"</td>\n" +
 "                          <td>\n" +
 "                            <center>\n" +
-"                                <button onclick=\"location.href=\'MSO_nuevo_pedido.jsp?id="+mesa.getID_MESA()+"\'\" type=\"button\"  id=\"btnNuevoPedido\" type=\"button\" class=\"btn btn-outline-primary\">Nuevo Pedido</button>\n" +
+"                                <button onclick=\"location.href=\'MSO_nuevo_pedido.jsp?IdMesa="+mesa.getID_MESA()+"\'\" type=\"button\"  id=\"btnNuevoPedido\" type=\"button\" class=\"btn btn-outline-primary\">Nuevo Pedido</button>\n" +
 "                            </center>\n" +
 "                          </td>\n" +
 "                          <td>\n" +
 "                            <center>\n" +
-"                                <button onclick=\"location.href=\'MSO_cobrar_pedido.jsp?id="+mesa.getID_MESA()+"\'\" type=\"button\" id=\"btnCobrarPedido\" type=\"button\" class=\"btn btn-outline-light\">Cobrar Pedido</button>\n" +
+"                                <button onclick=\"location.href=\'MSO_cobrar_pedido.jsp?IdMesa="+mesa.getID_MESA()+"\'\" type=\"button\" id=\"btnCobrarPedido\" type=\"button\" class=\"btn btn-outline-light\">Cobrar Pedido</button>\n" +
 "                            </center>\n" +
 "                          </td>\n" +
 "                        </tr>";
@@ -75,7 +76,7 @@ public class CodigoHTML  extends Conexion_consulta{
         return htmlcode;
     }
     
-    public String getMenus(){
+    public String getMenus(String IdMesa){
         String htmlcode = "";
         Listas l = new Listas();
         for(MENU menu : l.ListaMenus()){
@@ -97,18 +98,17 @@ public class CodigoHTML  extends Conexion_consulta{
 "                                                            <br>\n" +
 "                                                            <br>\n" +
 "                                                            <br>\n" +
-"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?id="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
+"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?IdMesa="+IdMesa+"&IdMenu="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
 "                                                    </div> <!-- action-wrap.// -->\n" +
 "                                            </aside> <!-- col.// -->\n" +
 "                                    </div> <!-- row.// -->\n" +
 "                                    </div> \n" +
 "                            </article>";
         }
-    
-    return htmlcode;
+        return htmlcode;
     }
     
-    public String getMenusPorCategoria(String categoria){
+    public String getMenusPorCategoria(String IdMesa, String categoria){
         String htmlcode = "";
         Listas l = new Listas();
         for(MENU menu : l.ListaMenusCategoria(categoria)){
@@ -130,7 +130,7 @@ public class CodigoHTML  extends Conexion_consulta{
 "                                                            <br>\n" +
 "                                                            <br>\n" +
 "                                                            <br>\n" +
-"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?id="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
+"                                                            <button onclick=\"location.href=\'MSO_detalle_producto.jsp?IdMesa="+IdMesa+"&IdMenu="+menu.getID_MENU()+"\'\" type=\"button\" class=\"btn btn-danger\" style=\"width: 100%\">Añadir</button>\n" +
 "                                                    </div> <!-- action-wrap.// -->\n" +
 "                                            </aside> <!-- col.// -->\n" +
 "                                    </div> <!-- row.// -->\n" +
@@ -138,11 +138,35 @@ public class CodigoHTML  extends Conexion_consulta{
 "                            </article>";
         }
     
-    return htmlcode;
+        return htmlcode;
+    }
+    
+     public String getPedidosPorDespachar(){
+        String htmlcode = "";
+        Listas l = new Listas();
+        int i = 0;
+        for(PEDIDO p : l.ListaPedidosPorDespachar()){
+            i++;
+            htmlcode+="<tr>\n" +
+"                              <td>"+i+"</td>\n" +
+"                              <td>"+p.getID_PEDIDO()+"</td>\n" +
+"                              <td>"+p.getID_MESA()+"</td>\n" +
+"                              <td>"+new Buscar().usuario(p.getID_USUARIO()).getUSUARIO()+"</td>\n" +
+"                              <td>"+p.getHORA_PEDIDO()+"</td>\n" +
+"                        \n" +
+"                              <td>\n" +
+"                                  <button onclick=\"location.href='CNO_Despachar.jsp?IdPedido="+p.getID_PEDIDO()+"'\" type=\"button\" class=\"btn btn-outline-light\" style=\"background: #fd7e14; height: 35px;\">\n" +
+"                                      Despachar\n" +
+"                                  </button>\n" +
+"                              </td>\n" +
+"                          </tr>";
+            
+        }
+        return htmlcode;
     }
     
 //    public static void main(String[] args) {
-//        System.out.println(new CodigoHTML().getMenus());
+//        System.out.println(new CodigoHTML().getMesasAsignadas("MSO-3"));
 //        
 //    }
 }

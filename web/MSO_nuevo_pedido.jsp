@@ -23,6 +23,7 @@
     }
     
     String categoria = (String) request.getParameter("categoria");
+    String IdMesa = (String)request.getParameter("IdMesa");
 %>
 <!DOCTYPE html>
 <html>
@@ -130,11 +131,11 @@
 
                                         <ul class="list-unstyled list-lg">
 
-                                            <li><a href="MSO_nuevo_pedido.jsp">Todos <span class="float-right badge badge-light round"></span> </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=C">Combos <span class="float-right badge badge-light round"></span> </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=B">Bebidas<span class="float-right badge badge-light round"></span>  </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=P">Postres<span class="float-right badge badge-light round"></span>  </a></li>
-                                            <li><a href="MSO_nuevo_pedido.jsp?categoria=CM">Complementos<span class="float-right badge badge-light round"></span>  </a></li>
+                                            <li><a href="MSO_nuevo_pedido.jsp?IdMesa=<%out.print(IdMesa);%>">Todos <span class="float-right badge badge-light round"></span> </a></li>
+                                            <li><a href="MSO_nuevo_pedido.jsp?IdMesa=<%out.print(IdMesa);%>&categoria=C">Combos <span class="float-right badge badge-light round"></span> </a></li>
+                                            <li><a href="MSO_nuevo_pedido.jsp?IdMesa=<%out.print(IdMesa);%>&categoria=B">Bebidas<span class="float-right badge badge-light round"></span>  </a></li>
+                                            <li><a href="MSO_nuevo_pedido.jsp?IdMesa=<%out.print(IdMesa);%>&categoria=P">Postres<span class="float-right badge badge-light round"></span>  </a></li>
+                                            <li><a href="MSO_nuevo_pedido.jsp?IdMesa=<%out.print(IdMesa);%>&categoria=CM">Complementos<span class="float-right badge badge-light round"></span>  </a></li>
                                         </ul>  
                                     </div> <!-- card-body.// -->
                                 </div> <!-- collapse .// -->
@@ -147,15 +148,15 @@
                         <div class="row">
                            
                             <%if((String) request.getParameter("categoria")==null){
-                                out.print(new CodigoHTML().getMenus());
+                                out.print(new CodigoHTML().getMenus(IdMesa));
                             }else if("C".equals((String) request.getParameter("categoria"))){
-                                out.print(new CodigoHTML().getMenusPorCategoria("C"));    
+                                out.print(new CodigoHTML().getMenusPorCategoria(IdMesa,"C"));    
                             }else if("B".equals((String) request.getParameter("categoria"))){
-                                out.print(new CodigoHTML().getMenusPorCategoria("B"));
+                                out.print(new CodigoHTML().getMenusPorCategoria(IdMesa,"B"));
                             }else if("P".equals((String) request.getParameter("categoria"))){  
-                                out.print(new CodigoHTML().getMenusPorCategoria("P"));
+                                out.print(new CodigoHTML().getMenusPorCategoria(IdMesa,"P"));
                             }else if("CM".equals((String) request.getParameter("categoria"))){  
-                                out.print(new CodigoHTML().getMenusPorCategoria("CM"));
+                                out.print(new CodigoHTML().getMenusPorCategoria(IdMesa,"CM"));
                             }%>
                         </div>
                     </main>

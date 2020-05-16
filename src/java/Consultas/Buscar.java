@@ -6,6 +6,7 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.CATEGORIA_MENU;
 import Estructuras.MENU;
 import Estructuras.MESA;
 import Estructuras.USUARIO;
@@ -123,8 +124,48 @@ public class Buscar extends Conexion_consulta{
         }
     }
     
+        public CATEGORIA_MENU categoria (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.CATEGORIA_MENU WHERE ID_CATEGORIA='"+id+"'";
+        CATEGORIA_MENU m = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                m = new CATEGORIA_MENU(rs.getString("ID_CATEGORIA"),
+                        rs.getString("NOMBRE"), rs.getString("DESCRIPCION")
+                );
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return m;
+        } catch (Exception e) {
+          return null;
+        }
+    }
+    
+    public int siguiente_pedido (){
+        st = null; rs = null;
+        sql = "SELECT EMPRESA.SQ_PEDIDO.NEXTVAL FROM DUAL";
+        int resp=0;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                resp = rs.getInt(1);
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return resp;
+        } catch (Exception e) {
+            return resp;
+        }
+    }
+    
 //    public static void main(String[] args) {
-//        System.out.println(new Buscar().menu("B-1").getNOMBRE());
+//        System.out.println(new Buscar().usuario("COCINERO1", "admin").getNOMBRES());
 //    }
     
 }

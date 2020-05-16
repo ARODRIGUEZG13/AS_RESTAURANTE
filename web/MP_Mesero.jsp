@@ -113,9 +113,18 @@
                       </thead>
                       <tbody>
                           <%
-                            if((String)sesion.getAttribute("usuario")!=null){  
+                            if((String)sesion.getAttribute("usuario")!=null&&!new CodigoHTML().getMesasAsignadas((String)sesion.getAttribute("usuario")).equals("")){  
                             out.print(new CodigoHTML().getMesasAsignadas((String)sesion.getAttribute("usuario")));
-                           }%>
+                            }else{%>
+                            <tr>
+                                <td></td>
+                                <td><h3>No tiene mesas asignadas ...</h3></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                           <%}%>
+                      
                       </tbody>
                     </table>
                 </section>
