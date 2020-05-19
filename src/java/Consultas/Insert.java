@@ -6,6 +6,9 @@
 package Consultas;
 
 import Controlador.Conexion_Transaccion;
+import Estructuras.CAJA_REGISTRO;
+import Estructuras.CLIENTE;
+import Estructuras.FACTURA;
 import Estructuras.PEDIDO;
 import Estructuras.PEDIDO_DETALLE;
 import Estructuras.USUARIO;
@@ -54,7 +57,7 @@ public class Insert extends Conexion_Transaccion{
                 conectar().commit();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return false;
         }finally{
             st.close();
@@ -73,7 +76,7 @@ public class Insert extends Conexion_Transaccion{
                 conectar().commit();
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return false;
         }finally{
             st.close();
@@ -82,8 +85,65 @@ public class Insert extends Conexion_Transaccion{
          return false;
     }
     
+    public boolean CLIENTE (CLIENTE c) throws SQLException{
+        sql = "INSERT INTO EMPRESA.CLIENTE VALUES('"+c.getNIT()+"','"+c.getNOMBRE()+"','"+c.getDIRECCION()+"')";
+        st = null;
+        try {
+            st = conectar().prepareCall(sql);
+            if(st.executeUpdate(sql)==1){
+                conectar().commit();
+                return true;
+            }
+        } catch (SQLException e) {
+        }finally{
+            st.close();
+            conectar().close();
+        }
+         return false;
+    }
+    
+    public boolean FACTURA (FACTURA f) throws SQLException{
+        sql = "INSERT INTO EMPRESA.FACTURACION VALUES ('"+f.getID_FACTURA()+"',"
+                + "'"+f.getID_CAJA()+"','"+f.getID_CAJERO()+"','"+f.getID_MESERO()+"',"
+                + "'"+f.getID_PEDIDO()+ "','"+f.getID_FORMA_PAGO()+"','"+f.getNIT()+"',"+f.getVALOR()
+                + ","+f.getCANCELADA()+","+f.getANULADA()+",TO_CHAR(SYSDATE, 'DD/MM/YYYY HH:MI:SS'))";
+        st = null;
+        try {
+            st = conectar().prepareCall(sql);
+            if(st.executeUpdate(sql)==1){
+                conectar().commit();
+                return true;
+            }
+        } catch (Exception e) {
+        }finally{
+            st.close();
+            conectar().close();
+        }
+        return false;
+    }
+    
+    public boolean CAJA_REGISTRO (CAJA_REGISTRO c) throws SQLException{
+        sql = "INSERT INTO EMPRESA.CAJA_REGISTRO VALUES ('"+c.getID_REGISTRO()+"','"+c.getID_CAJA()+"',"
+                + "'"+c.getID_USUARIO()+"',"+c.getSALDO_INICIAL()+","+c.getSALDO_FINAL()+",'Se cerro turno',TO_CHAR(SYSDATE, 'DD/MM/YYYY HH:MI:SS'))";
+        st = null;
+        try {
+            st = conectar().prepareCall(sql);
+            if(st.executeUpdate(sql)==1){
+                conectar().commit();
+                return true;
+            }
+        } catch (Exception e) {
+        }finally{
+            st.close();
+            conectar().close();
+        }
+        return false;
+    }
+    
+    
+    
 //    public static void main(String[] args) throws SQLException {
-//        System.out.println(new Insert().PEDIDO(new PEDIDO("PDO-1", "M-01", "MSO-3", 0)));
+//        System.out.println(new Insert().CAJA_REGISTRO(new CAJA_REGISTRO("C001-1", "C001", "CJO-9", 500, 1000)));
 //    }
     
 }

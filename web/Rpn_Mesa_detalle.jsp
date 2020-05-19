@@ -136,7 +136,7 @@
                         <select class="form-control" id="txtId_Mesero">
                             <option selected value="">Seleccionar mesero</option>
                             <%for (USUARIO u : vu){%>
-                             <option value="<%=u.getID_USUARIO()%>"><%out.print(u.getNOMBRES()+" "+u.getAPELLIDOS());%></option>
+                             <option value="<%=u.getID_USUARIO()%>"><%out.print(u.getUSUARIO()+" "+u.getNOMBRES()+" "+u.getAPELLIDOS());%></option>
                             <%}%>
                         </select>
                         <%}else{%>

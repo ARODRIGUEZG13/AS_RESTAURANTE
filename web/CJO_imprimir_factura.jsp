@@ -1,6 +1,6 @@
 <%-- 
-    Document   : MP_Cajero
-    Created on : 8/04/2020, 03:47:50 PM
+    Document   : CJO_imprimir_factura
+    Created on : 18/05/2020, 07:59:03 PM
     Author     : Alex
 --%>
 
@@ -10,28 +10,20 @@
 <%
     HttpSession sesion = request.getSession();
     String usuario = "";
-    String efectivo = "";
-    double  saldoFinal=0;
-    String IdUsuario = (String) sesion.getAttribute("usuario");
-    String IdCaja = (String)request.getParameter("IdCaja");
+    
+    String IdUsuario = (String)sesion.getAttribute("usuario");
+    String IdPedido = (String)request.getParameter("IdPedido");
     if (sesion.getAttribute("usuario") == null) {
         response.sendRedirect("login.jsp");
     }else{
         usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
-    }
-    if(sesion.getAttribute("efectivo")!=null){
-        efectivo = (String)sesion.getAttribute("efectivo");
-        saldoFinal = new Buscar().caja(IdCaja).getSALDO()+ Double.parseDouble(efectivo);
-    }else{
-        efectivo = "vacio";
     }
 %>
 <!DOCTYPE html>
 <html>
      <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Caja</title>  
-        
+        <title>Cajero</title>  
         <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
@@ -42,10 +34,10 @@
         
         <!--===============================================================================================-->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">   
-        <!--===============================================================================================--> 
+        <!--===============================================================================================-->
     </head>
     <body>
-            <nav class="navbar navbar-expand-lg navbar" style="background-color: #20c997;"> <!color del cuadro fondo>
+                    <nav class="navbar navbar-expand-lg navbar" style="background-color: #20c997;"> <!color del cuadro fondo>
           <nav class="navbar" style="background-color: #20c997;"> <!color del cuadro opciones>
          <a class="navbar-brand" href="#">
         <img src="images/icons/cajero.png" width="45" height="45" alt="">
@@ -104,88 +96,31 @@
   </div>
 </nav>
 </nav>
-     
+        <hr style="background: #20c997">         
+        <h3 style="text-align: center">FINALIZACION DE PEDIDO</h3>
         <hr style="background: #20c997">
+        <br>
+        
         <section class="main container">
             <div class="row">
-                <section class="post col-md-2"></section>
-                <section class="post col-md-2">
-                    <b>Saldo inicial</b>
-                    <input type="text" id="txtSaldoInicial" value="<%out.print(new Buscar().caja(IdCaja).getSALDO());%>" hidden>
-                    <input type="text" class="form-control" value="Q.<%out.print(new Buscar().caja(IdCaja).getSALDO());%>" disabled>
-                </section>
-                <section class="post col-md-2">
-                    <b>Efectivo del dia</b>
-                    <input type="text" id="txtSaldoDia"  value="<%out.print(efectivo);%>" hidden>
-                    <input type="text" class="form-control" value="Q.<%out.print(efectivo);%>" disabled>
-                </section>
-                <section class="post col-md-2">
-                    <b>Saldo Final</b>
-                    <input type="text" id="txtSaldoFinal"  value="<%out.print(saldoFinal);%>" hidden>
-                    <input type="text" class="form-control" value="Q.<%out.print(saldoFinal);%>" disabled>
-                </section>
-                <section class="post col-md-2">
-                    <br>
-                    <button id="btnCerrarTurno" type="button" class="btn btn-outline-success">
-                        Finalizar turno
+                <section class="post col-md-4"></section>
+                <section class="post col-md-4">
+                    <br><br><br><br>
+                    <button class="btn btn-block btn-outline-primary" style="height: 75px;">
+                        <h3>IMPRIMIR FACTURA</h3>
                     </button>
-                    <input type="text" id="txtIdCaja" hidden value="<%out.print(IdCaja);%>">
-                    <input type="text" id="txtIdCajero" hidden value="<%out.print(IdUsuario);%>">
+                    <br><br>
+                    <button onclick="location.hash='MP_Cajero.jsp?IdCaja=<%out.print((String)request.getParameter("IdCaja"));%>'" class="btn btn-block btn-outline-primary" style="height: 75px;">
+                        <h3>MENU PRINCIPAL</h3>
+                    </button>
+                    <br><br><br><br><br><br>
                 </section>
-                <section class="post col-md-1"></section>
+                <section class="post col-md-4"></section>
             </div>
         </section>
-        <hr style="background: #20c997">
-        
-        
-        <div class="row">
-            <section class="post col-md-4"></section>
-            <section class="post col-md-4">
-                 <h3 style="text-align: center">Lista de pedidos por cobrar:</h3>
-            </section>
-        </div>
-        
-        <section class="main container">
-            <div class="row">
-                <section class="post col-md-1"></section>
-                <section class="post col-md-10">
-                    <table class="table table-hover table-dark">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">PEDIDO</th>
-                          <th scope="col">MESA</th>
-                          <th scope="col">MESERO</th>
-                          <th scope="col">CLIENTE</th>
-                          <th scope="col">TOTAL</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody> 
-                          <%
-                            if(!new CodigoHTML().getCobrarPedidos().equals("")){  
-                            out.print(new CodigoHTML().getCobrarPedidos());
-                            }else{%>
-                            <tr>
-                                <td></td>
-                                <td><h3>No hay pedidos por cobrar ...</h3></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                           <%}%>
-                      
-                      </tbody>
-                    </table>
-                </section>
-                <section class="post col-md-1"></section>
-            </div>
-        </section>
+         <hr style="background: #20c997">
+                      <br><br>              
       
-    </body>
-        
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
         <script src="vendor/bootstrap/js/popper.min.js" type="text/javascript"></script>
         <script src="vendor/bootstrap/js/sweetalert.min.js" type="text/javascript"></script>
@@ -193,10 +128,9 @@
         <script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
-        
-        <%if((String)request.getParameter("tc")!=null){%>
+        <%if((String)request.getParameter("fc")!=null){%>
         <script type="text/javascript">
-            swal("Listo","Se abrio el turno correctamente ...","success");
+            swal("Listo","Factura creada correctamente","success");
         </script>
         <%}%>
 </html>

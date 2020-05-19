@@ -6,11 +6,16 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.CAJA;
 import Estructuras.CATEGORIA_MENU;
+import Estructuras.CLIENTE;
+import Estructuras.FACTURA;
 import Estructuras.MENU;
 import Estructuras.MESA;
+import Estructuras.PEDIDO;
 import Estructuras.USUARIO;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -159,13 +164,205 @@ public class Buscar extends Conexion_consulta{
             rs.close();
             st.close();
             return resp;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return resp;
         }
     }
     
+    public int siguiente_factura (){
+        st = null; rs = null;
+        sql = "SELECT EMPRESA.SQ_FACTURACION.NEXTVAL FROM DUAL";
+        int resp=0;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                resp = rs.getInt(1);
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return resp;
+        } catch (SQLException e) {
+            return resp;
+        }
+    }
+    
+    public int siguiente_caja_registro (){
+        st = null; rs = null;
+        sql = "SELECT EMPRESA.SQ_CAJA_REGISTRO.NEXTVAL FROM DUAL";
+        int resp=0;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                resp = rs.getInt(1);
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return resp;
+        } catch (SQLException e) {
+            return resp;
+        }
+    }
+    
+    public int cantidad_pedido_por_cobrar (){
+        st = null; rs = null;
+        sql = "SELECT COUNT(CASE ESTADO WHEN 1 THEN 1 else null end)RESULTADO from EMPRESA.PEDIDO";
+        int resp=0;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                resp = rs.getInt(1);
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return resp;
+        } catch (SQLException e) {
+            return resp;
+        }
+    }
+    
+    public double total_pedido(String id){
+        
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.PEDIDO_DETALLE WHERE ID_PEDIDO='"+id+"'";
+        double resp = 0;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                resp = resp + (rs.getInt("CANTIDAD")* new Buscar().menu(rs.getString("ID_MENU")).getPRECIO());
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return resp;
+        } catch (Exception e) {
+            return resp;
+        }
+    
+    }
+    
+    public CAJA caja (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.CAJA WHERE ID_CAJA='"+id+"'";
+        CAJA c = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                c = new CAJA(rs.getString("ID_CAJA"), rs.getString("ID_USUARIO"),
+                            rs.getDouble("SALDO"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return c;
+        } catch (Exception e) {
+          return null;
+        }
+    }
+    
+    public CAJA cajaPorUsuario (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.CAJA WHERE ID_USUARIO='"+id+"'";
+        CAJA c = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                c = new CAJA(rs.getString("ID_CAJA"), rs.getString("ID_USUARIO"),
+                            rs.getDouble("SALDO"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return c;
+        } catch (Exception e) {
+          return null;
+        }
+    }
+    
+    public PEDIDO pedido (String id){
+        st = null; rs  = null;
+        sql = "SELECT * FROM EMPRESA.PEDIDO WHERE ID_PEDIDO='"+id+"'";
+        PEDIDO p = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                p = new PEDIDO(
+                            rs.getString("ID_PEDIDO"),
+                            rs.getString("ID_MESA"),
+                            rs.getString("ID_USUARIO"),
+                            rs.getInt("ESTADO"),
+                            rs.getString("HORA_PEDIDO"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return p;
+        } catch (SQLException e) {
+            return null;
+        } 
+    }
+    
+    public CLIENTE cliente (String nit){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.CLIENTE WHERE NIT='"+nit+"'";
+        CLIENTE c = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                c = new CLIENTE(rs.getString("NIT"), rs.getString("NOMBRE"),
+                        rs.getString("DIRECCION"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return c;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
+    public FACTURA factura (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.FACTURACION WHERE ID_FACTURA='"+id+"'";
+        FACTURA f = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                f = new FACTURA(rs.getString("ID_FACTURA"),
+                        rs.getString("ID_CAJA"),
+                        rs.getString("ID_CAJERO"), 
+                        rs.getString("ID_MESERO"),
+                        rs.getString("ID_PEDIDO"),
+                        rs.getString("ID_FORMA_PAGO"),
+                        rs.getString("NIT"),
+                        rs.getDouble("VALOR"),
+                        rs.getInt("CANCELADA"),
+                        rs.getInt("ANULADA"),
+                        rs.getString("FECHA"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return f;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
 //    public static void main(String[] args) {
-//        System.out.println(new Buscar().usuario("COCINERO1", "admin").getNOMBRES());
+//        System.out.println(new Buscar().cantidad_pedido_por_cobrar());
 //    }
+    
     
 }

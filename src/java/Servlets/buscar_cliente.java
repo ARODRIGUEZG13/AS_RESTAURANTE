@@ -6,21 +6,18 @@
 package Servlets;
 
 import Consultas.Buscar;
-import Estructuras.USUARIO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Alex     URL: Autenticacion
+ * @author Alex         URL: buscar_cliente
  */
-public class Login extends HttpServlet {
+public class buscar_cliente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +32,13 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Buscar b = new Buscar();
-        String usuario = request.getParameter("txtUsuario");
-        String password = request.getParameter("txtPass");
+        String NIT = request.getParameter("txtNIT");
         String respuesta = "";
-        USUARIO u = b.usuario(usuario, password);
-        HttpSession sesion = request.getSession();
         
-        if(u != null){
-            respuesta = u.getID_CARGO();
-            sesion.setAttribute("usuario", u.getID_USUARIO());
-            if(u.getID_CARGO().equals("CJO")){
-                sesion.setAttribute("efectivo", "0.0");
-                
-            }
+        if(new Buscar().cliente(NIT)!=null){
+            respuesta = new Buscar().cliente(NIT).getNOMBRE()+"|"+new Buscar().cliente(NIT).getDIRECCION();
         }else{
-            respuesta = "denegado";
+            respuesta = "";
         }
         
         response.getWriter().print(respuesta);

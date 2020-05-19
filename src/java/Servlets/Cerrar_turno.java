@@ -6,21 +6,26 @@
 package Servlets;
 
 import Consultas.Buscar;
-import Estructuras.USUARIO;
+import Consultas.Insert;
+import Consultas.Listas;
+import Consultas.Update;
+import Estructuras.CAJA;
+import Estructuras.CAJA_REGISTRO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Alex     URL: Autenticacion
+ * @author Alex
  */
-public class Login extends HttpServlet {
+public class Cerrar_turno extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,27 +37,28 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Buscar b = new Buscar();
-        String usuario = request.getParameter("txtUsuario");
-        String password = request.getParameter("txtPass");
-        String respuesta = "";
-        USUARIO u = b.usuario(usuario, password);
-        HttpSession sesion = request.getSession();
-        
-        if(u != null){
-            respuesta = u.getID_CARGO();
-            sesion.setAttribute("usuario", u.getID_USUARIO());
-            if(u.getID_CARGO().equals("CJO")){
-                sesion.setAttribute("efectivo", "0.0");
-                
+        double SaldoInicial = Double.parseDouble(request.getParameter("txtSaldoInicial"));
+        double SaldoFinal = Double.parseDouble(request.getParameter("txtSaldoFinal"));
+        String IdCaja = request.getParameter("txtIdCaja");
+        String IdCajero = request.getParameter("txtIdCajero");
+        int sig = new Buscar().siguiente_caja_registro();
+        String IdRegistro = IdCaja+"-"+sig;
+        String respuesta = ""; 
+       
+        if(new Buscar().cantidad_pedido_por_cobrar()==0){
+            if(new Insert().CAJA_REGISTRO(new CAJA_REGISTRO(IdRegistro, IdCaja, IdCajero, SaldoInicial, SaldoFinal))){
+                new Update().UsuarioCaja(new CAJA(IdCaja, "MSO-2", SaldoFinal));
+                new Update().DesocuparMesa(IdCaja);
+                respuesta = "true";
+            }else{
+                respuesta = "false";
             }
         }else{
-            respuesta = "denegado";
+            respuesta = "pendientes";
         }
-        
         response.getWriter().print(respuesta);
     }
 
@@ -68,7 +74,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cerrar_turno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -82,7 +92,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cerrar_turno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

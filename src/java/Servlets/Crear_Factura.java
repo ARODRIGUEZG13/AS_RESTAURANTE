@@ -6,10 +6,16 @@
 package Servlets;
 
 import Consultas.Buscar;
-import Estructuras.USUARIO;
+import Consultas.Insert;
+import Consultas.Update;
+import Estructuras.CLIENTE;
+import Estructuras.FACTURA;
+import Estructuras.MESA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +24,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Alex     URL: Autenticacion
+ * @author Alex         URL. Nueva_Factura
  */
-public class Login extends HttpServlet {
+public class Crear_Factura extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,28 +38,49 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Buscar b = new Buscar();
-        String usuario = request.getParameter("txtUsuario");
-        String password = request.getParameter("txtPass");
+        String IdCaja = request.getParameter("txtIdCaja");
+        String IdCajero = request.getParameter("txtIdCajero");
+        String IdMesero = request.getParameter("txtIdMesero");
+        String IdPedido = request.getParameter("txtIdPedido");
+        String Fpago = request.getParameter("txtForma");
+        double total = Double.parseDouble(request.getParameter("txtTotal")); 
+        String NIT = request.getParameter("txtNIT");
+        String cliente = request.getParameter("txtCliente");
+        String direccion = request.getParameter("txtDireccion");
         String respuesta = "";
-        USUARIO u = b.usuario(usuario, password);
-        HttpSession sesion = request.getSession();
+        int sigFac = new Buscar().siguiente_factura();
+        String IdFactura = "FC-"+sigFac;
         
-        if(u != null){
-            respuesta = u.getID_CARGO();
-            sesion.setAttribute("usuario", u.getID_USUARIO());
-            if(u.getID_CARGO().equals("CJO")){
-                sesion.setAttribute("efectivo", "0.0");
-                
-            }
-        }else{
-            respuesta = "denegado";
+        
+        HttpSession sesion = request.getSession();
+        double SaldoCaja = 0;
+        
+        if(sesion.getAttribute("efectivo")!=null){
+            SaldoCaja = Double.parseDouble((String)sesion.getAttribute("efectivo"));
         }
         
+        if (new Buscar().cliente(NIT)==null){
+            new Insert().CLIENTE(new CLIENTE(NIT, cliente, direccion));
+        }
+        
+        if(new Insert().FACTURA(new FACTURA(IdFactura, IdCaja, IdCajero, IdMesero, IdPedido, Fpago, NIT, total, 1, 0))){
+            
+            SaldoCaja = SaldoCaja + total;
+            sesion.setAttribute("efectivo", String.valueOf(SaldoCaja));
+            new Update().EstadoPedido2(IdPedido);
+            
+            respuesta = "true";
+            
+        }else{
+            respuesta = "false";
+        } 
+        
+        
         response.getWriter().print(respuesta);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +95,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Crear_Factura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -82,7 +113,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Crear_Factura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

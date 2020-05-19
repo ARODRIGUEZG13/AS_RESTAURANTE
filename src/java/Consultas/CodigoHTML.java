@@ -9,6 +9,7 @@ import Controlador.Conexion_consulta;
 import Estructuras.MENU;
 import Estructuras.MESA;
 import Estructuras.PEDIDO;
+import Estructuras.PEDIDO_DETALLE;
 
 /**
  *
@@ -67,7 +68,7 @@ public class CodigoHTML  extends Conexion_consulta{
 "                          </td>\n" +
 "                          <td>\n" +
 "                            <center>\n" +
-"                                <button onclick=\"location.href=\'MSO_cobrar_pedido.jsp?IdMesa="+mesa.getID_MESA()+"\'\" type=\"button\" id=\"btnCobrarPedido\" type=\"button\" class=\"btn btn-outline-light\">Cobrar Pedido</button>\n" +
+"                                <button onclick=\"location.href=\'#\'\" type=\"button\"  type=\"button\" class=\"btn btn-outline-light\">Modificar Pedido</button>\n" +
 "                            </center>\n" +
 "                          </td>\n" +
 "                        </tr>";
@@ -164,9 +165,49 @@ public class CodigoHTML  extends Conexion_consulta{
         }
         return htmlcode;
     }
+     
+    public String getCobrarPedidos(){
+        String htmlcode = "";
+        Listas l = new Listas();
+        int i = 0;
+            
+            for(PEDIDO p : l.ListaCobrarPedido()){
+                i++;
+                htmlcode += "<tr>\n" +
+"                                <td>"+i+"</td>\n" +
+"                                <td>"+p.getID_PEDIDO()+"</td>\n" +
+"                                <td>"+p.getID_MESA()+"</td>\n" +
+"                                <td>"+new Buscar().usuario(p.getID_USUARIO()).getUSUARIO()+"</td>\n" +
+"                                <td>"+new Buscar().mesa(p.getID_MESA()).getCLIENTE()+"</td>\n" +
+"                                <td>"+new Buscar().total_pedido(p.getID_PEDIDO())+"</td>\n" +
+"                                <td>\n" +
+"                                    <button onclick=\"location.href='CJO_cobrar_pedido.jsp?IdMesa="+p.getID_MESA()+"&IdPedido="+p.getID_PEDIDO()+"'\" class=\"btn btn-outline-light\">\n" +
+"                                        Cobrar\n" +
+"                                    </button>\n" +
+"                                </td>\n" +
+"                              </tr>";
+            }
+        
+        return htmlcode;
+    }
+    
+    public String getDetallePedido(String id){
+        String htmlcode = "";
+        Listas l = new Listas();
+            for(PEDIDO_DETALLE p : l.ListaPedidoDetalle(id)){
+                htmlcode += "<tr>\n" +
+"                                <td>"+p.getID_DETALLE()+"</td>\n" +
+"                                <td>"+new Buscar().menu(p.getID_MENU()).getNOMBRE()+"</td>\n" +
+"                                <td>"+new Buscar().menu(p.getID_MENU()).getPRECIO()+"</td>\n" +
+"                                <td>"+p.getCANTIDAD()+"</td>\n" +
+"                                <td>"+p.getCANTIDAD()*new Buscar().menu(p.getID_MENU()).getPRECIO()+"</td>\n" +
+"                            </tr>";
+            }
+        return htmlcode;
+    }
     
 //    public static void main(String[] args) {
-//        System.out.println(new CodigoHTML().getMesasAsignadas("MSO-3"));
+//        System.out.println(new CodigoHTML().getCobrarPedidos());
 //        
 //    }
 }
