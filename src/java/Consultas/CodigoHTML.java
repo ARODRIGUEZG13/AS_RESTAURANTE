@@ -6,6 +6,7 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.FACTURA;
 import Estructuras.MENU;
 import Estructuras.MESA;
 import Estructuras.PEDIDO;
@@ -206,8 +207,29 @@ public class CodigoHTML  extends Conexion_consulta{
         return htmlcode;
     }
     
+    public String getFacturas(){
+        String htmlcode = "";
+        Listas l = new Listas();
+        int i = 0;
+            for(FACTURA f : l.ListaFacturas()){
+                i++;
+                htmlcode += "<tr>\n" +
+"                                <td>"+i+"</td>\n" +
+"                                <td>"+f.getID_FACTURA()+"</td>\n" +
+"                                <td>"+new Buscar().cliente(f.getNIT()).getNOMBRE()+"</td>\n" +
+"                                <td>Q."+f.getVALOR()+"</td>\n" +
+"                                <td>"+
+"                                  <button formtarget=\"_blank\" onclick=\"location.href='ADS_Imprimir.jsp?IdFactura="+f.getID_FACTURA()+"'\" type=\"button\" class=\"btn btn-outline-light\" style=\"background: blue; height: 35px;\">\n" +
+"                                      Imprimir\n" +
+"                                  </button>\n" +
+"                                </td>\n" +
+"                            </tr>";
+            }
+        return htmlcode;
+    }
+    
 //    public static void main(String[] args) {
-//        System.out.println(new CodigoHTML().getCobrarPedidos());
+//        System.out.println(new CodigoHTML().getFacturas());
 //        
 //    }
 }
