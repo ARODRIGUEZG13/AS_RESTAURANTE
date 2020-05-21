@@ -4,7 +4,18 @@
     Author     : Alex
 --%>
 
+<%@page import="Consultas.Buscar"%>
+<%@page import="Consultas.CodigoHTML"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion = request.getSession();
+    String usuario = "";
+    if (sesion.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+    }else{
+        usuario = new Buscar().usuario((String)sesion.getAttribute("usuario")).getUSUARIO();
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,10 +25,12 @@
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
+        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        
             <nav class="navbar navbar-expand-lg navbar" style="background-color: #ffc107;"> <!color del cuadro fondo>
-          <nav class="navbar" style="background-color: #ffc107;"> <!color del cuadro opciones>
+            <nav class="navbar" style="background-color: #ffc107;"> <!color del cuadro opciones>
          <a class="navbar-brand" href="MP_Recepcion.jsp">
         <img src="images/icons/recepcionista.png" width="45" height="45" alt="">
         </a>
@@ -28,7 +41,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-          <a class="nav-link" href="MP_Recepcion.jsp" style="color: white">   RECEPCIÓN </a>
+          <a class="nav-link" href="MP_Recepcion.jsp" style="color: white"> <%out.print(usuario);%></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
@@ -78,6 +91,23 @@
     </form>
   </div>
 </nav>
+            </nav>
+        
+        <hr style="background: #ffc107"> 
+        <h3 style="text-align: center">RECEPCION Y CONTROL DE MESAS</h3>
+        <hr style="background: #ffc107">    
+        <section class="main container">
+            <div class="row">
+                <section class="post col-md-12">
+                <%CodigoHTML c = new CodigoHTML();
+                   if(c.getMesas()!=null){%>
+                   <%=new CodigoHTML().getMesas()%>
+                   <%}%>
+                </section>
+            </div>
+        </section>
+                
+                
          <script src="js/jquery-3.3.1.slim.min.js" type="text/javascript"></script>
          <script src="js/popper.min.js" type="text/javascript"></script>
 

@@ -8,6 +8,42 @@
         <servlet-name>Crear_usuario</servlet-name>
         <servlet-class>Servlets.Crear_usuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarMesa</servlet-name>
+        <servlet-class>Servlets.ModificarMesa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Pedido_detalle</servlet-name>
+        <servlet-class>Servlets.Pedido_detalle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TerminarPedido</servlet-name>
+        <servlet-class>Servlets.TerminarPedido</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <servlet-class>Servlets.CambiarEstadoPedido</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuscarSaldoCaja</servlet-name>
+        <servlet-class>Servlets.BuscarSaldoCaja</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarUsuarioCaja</servlet-name>
+        <servlet-class>Servlets.ModificarUsuarioCaja</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>buscar_cliente</servlet-name>
+        <servlet-class>Servlets.buscar_cliente</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Crear_Factura</servlet-name>
+        <servlet-class>Servlets.Crear_Factura</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cerrar_turno</servlet-name>
+        <servlet-class>Servlets.Cerrar_turno</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Autenticacion</url-pattern>
@@ -15,6 +51,42 @@
     <servlet-mapping>
         <servlet-name>Crear_usuario</servlet-name>
         <url-pattern>/Registrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarMesa</servlet-name>
+        <url-pattern>/Asignar_Mesero</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Pedido_detalle</servlet-name>
+        <url-pattern>/Add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TerminarPedido</servlet-name>
+        <url-pattern>/Crear_pedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <url-pattern>/Despachar_pedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscarSaldoCaja</servlet-name>
+        <url-pattern>/Saldo_Caja</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUsuarioCaja</servlet-name>
+        <url-pattern>/actulizar_us_caja</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>buscar_cliente</servlet-name>
+        <url-pattern>/buscar_cliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Crear_Factura</servlet-name>
+        <url-pattern>/Nueva_Factura</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cerrar_turno</servlet-name>
+        <url-pattern>/Cerrar_turno</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

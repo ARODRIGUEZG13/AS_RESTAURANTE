@@ -45,6 +45,10 @@ public class Login extends HttpServlet {
         if(u != null){
             respuesta = u.getID_CARGO();
             sesion.setAttribute("usuario", u.getID_USUARIO());
+            if(u.getID_CARGO().equals("CJO")){
+                sesion.setAttribute("efectivo", "0.0");
+                
+            }
         }else{
             respuesta = "denegado";
         }
