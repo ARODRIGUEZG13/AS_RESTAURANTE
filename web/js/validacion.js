@@ -397,7 +397,7 @@ $(function (){
                    txtCliente:cliente,txtDireccion:direccion,txtTotal:total},
             success: function (r) {
                 if(r==="true"){
-                    location.href="CJO_imprimir_factura.jsp?IdCaja="+IdCaja+"&fc=ys";
+                    location.href="CJO_imprimir_factura.jsp?IdCaja="+IdCaja+"&IdPedido="+IdPedido+"&fc=ys";
                 }else{
                     swal("Error","No se ha podido crear la factura","error");
                 }
@@ -435,6 +435,50 @@ $(function (){
                 }
             });
         }
+    });
+    
+    // FUNCION PARA DESOCUPAR MESA EN RPN_Mesa_detalle.jsp   ------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------
+    
+    $('#btnDesocuparMesa').click(function (){
+        
+        var IdMesa = document.getElementById("txtId_Mesa").value;
+        $.ajax({
+            url: 'Desocupar_Mesa',
+            type: 'POST',
+            data: {txtIdMesa:IdMesa},
+            success: function (r) {
+                if(r==="true"){
+                    location.href = "Rpn_Mesa_detalle.jsp?id="+IdMesa;
+                }else if(r==="false"){
+                    swal("Error","Nose pudo desocupar la mesa","error");
+                }
+            }
+        });
+        
+    });
+    
+    //--------------------------------------------------------------------------------------------------
+    // BOTONOES QUE ACTIVAN REPORTES
+    //--------------------------------------------------------------------------------------------------
+    $('#btnRptUsuarios').click(function (){
+         window.open('RptUsuarios.jsp','_blank');
+    });
+    
+    $('#btnRptCaja').click(function (){
+         window.open('RptCaja_registros.jsp','_blank');
+    });
+    
+    $('#btnGrafo1').click(function (){
+         window.open('ADS_G_Combos.jsp','_blank');
+    });
+    
+    $('#btnGrafo2').click(function (){
+         window.open('ADS_G_Bebidas.jsp','_blank');
+    });
+    
+    $('#btnGrafo3').click(function (){
+         window.open('ADS_G_Postres.jsp','_blank');
     });
     
 });

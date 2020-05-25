@@ -1,9 +1,10 @@
 <%-- 
-    Document   : MP_Cajero
-    Created on : 8/04/2020, 03:47:50 PM
+    Document   : ADS_Facturas
+    Created on : 19/05/2020, 07:55:25 PM
     Author     : Alex
 --%>
 
+<%@page import="Consultas.CodigoHTML"%>
 <%@page import="Consultas.Buscar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -20,13 +21,20 @@
 <html>
      <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inicio</title>  
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">      
-        <!--===============================================================================================-->	
+        <title>Admin</title>  
+       <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
         <!--===============================================================================================-->
+        <link href="css/responsive.css" rel="stylesheet" type="text/css"/>
+        <!--===============================================================================================-->
+        <link href="css/ui.css" rel="stylesheet" type="text/css"/>
+        <!--===============================================================================================-->
+        
+        <!--===============================================================================================-->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">   
+        <!--===============================================================================================-->
     </head>
-    <body style="background: #333333">
+    <body>
           <nav class="navbar navbar-expand-lg navbar navbar navbar-primary bg-primary">
           <nav class="navbar navbar-dark bg-primary">
                                  <a class="navbar-brand" href="MP_Admin.jsp">
@@ -83,43 +91,50 @@
                               
                           </div>
           </nav></nav>
-           <br>
-           <section class="main">
+
+           <hr style="background: #0056b3">
+            <center>
+                <h3>Listado de Facturas</h3>
+            </center>
+           <hr style="background: #0056b3">
+           <section class="main container">
               <div class="row">
-                  <section class="pos col-md-4">
-                      <button id="btnRptUsuarios" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>REPORTE DE USUARIOS</h3>
-                      </button> 
+                  <section class="post col-md-1"></section>
+                  <section class="post col-md-10">
+                      
+                      <table class="table table-hover table-dark">
+                      
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">ID FACTURA</th>
+                              <th scope="col">CLIENTE</th>
+                              <th scope="col">VALOR</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead> 
+
+                          <tbody>
+                              <%if("".equals(new CodigoHTML().getFacturas())){%>
+                              <tr>
+                                  <td></td> 
+                                  <td></td>
+                                  <td>No hay pedidos por despachar</td>
+                                  <td></td>
+                                  <td>
+                                  </td>
+                              </tr>
+                              <%}else{
+                                    out.print(new CodigoHTML().getFacturas());
+                               }%>
+                          </tbody>
+
+                      </table>
+                      
                   </section>
-                  <section class="pos col-md-4">
-                      <button id="btnRptCaja" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>REPORTE DE CAJA</h3>
-                      </button>
-                  </section>
-                  <section class="pos col-md-4">
-                      <button onclick="location.href='ADS_Facturas.jsp'" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>REPORTE DE FACTURAS</h3>
-                      </button>
-                  </section>
+                  <section class="post col-md-1"></section>
               </div>
                <br>
-              <div class="row">
-                  <section class="pos col-md-4">
-                      <button id="btnGrafo1" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>COMBO MAS VENDIDO</h3>
-                      </button>
-                  </section>
-                  <section class="pos col-md-4">
-                      <button id="btnGrafo2" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>BEBIDA MAS VENDIDA</h3>
-                      </button>
-                  </section>
-                  <section class="pos col-md-4">
-                      <button id="btnGrafo3" type="button" class="btn btn-block btn-outline-light" style="height: 250px;">
-                          <h3>POSTRE MAS VENDIDO</h3>
-                      </button>
-                  </section>
-              </div> 
           </section>                          
                               
                               

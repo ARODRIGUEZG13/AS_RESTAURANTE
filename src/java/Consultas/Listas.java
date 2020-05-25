@@ -6,6 +6,7 @@
 package Consultas;
 
 import Controlador.Conexion_consulta;
+import Estructuras.AUX_MENU;
 import Estructuras.CAJA;
 import Estructuras.CARGO;
 import Estructuras.FACTURA;
@@ -15,6 +16,7 @@ import Estructuras.PEDIDO;
 import Estructuras.PEDIDO_DETALLE;
 import Estructuras.USUARIO;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -154,7 +156,7 @@ public class Listas extends Conexion_consulta{
 
                     m = new MENU(rs.getString("ID_MENU"),
                             rs.getString("ID_CATEGORIA"),
-                            rs.getString("NOMBRE"),
+                            rs.getString("NOMBRE_MENU"),
                             rs.getString("DESCRIPCION"),
                             rs.getDouble("PRECIO"),
                             rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
@@ -164,7 +166,7 @@ public class Listas extends Conexion_consulta{
                 st.close();
                 rs.close();
                 return vista;
-            } catch (Exception e) {
+            }catch (Exception e) {
                 return null;
             }
     }
@@ -183,7 +185,7 @@ public class Listas extends Conexion_consulta{
 
                     m = new MENU(rs.getString("ID_MENU"),
                             rs.getString("ID_CATEGORIA"),
-                            rs.getString("NOMBRE"),
+                            rs.getString("NOMBRE_MENU"),
                             rs.getString("DESCRIPCION"),
                             rs.getDouble("PRECIO"),
                             rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
@@ -193,7 +195,7 @@ public class Listas extends Conexion_consulta{
                 st.close();
                 rs.close();
                 return vista;
-            } catch (Exception e) {
+            }catch (Exception e) {
                 return null;
             }
     }
@@ -252,7 +254,7 @@ public class Listas extends Conexion_consulta{
             }
     }
         
-        public ArrayList<PEDIDO> ListaCobrarPedido(){
+    public ArrayList<PEDIDO> ListaCobrarPedido(){
         
         ArrayList<PEDIDO> vista = new ArrayList<PEDIDO>();
         PEDIDO p = null;
@@ -314,7 +316,7 @@ public class Listas extends Conexion_consulta{
         try {
             st = conectar().createStatement();
             rs = st.executeQuery("SELECT ID_FACTURA, ID_CAJA, ID_CAJERO, ID_MESERO, ID_PEDIDO,ID_FORMA_PAGO, NIT, VALOR, CANCELADA," +
-                                 "ANULADA, TO_CHAR(FECHA,'HH24:MI:SS') FROM EMPRESA.facturacion ORDER BY ID_FACTURA;");
+                                 "ANULADA, TO_CHAR(FECHA,'DD/MM/YYYY HH24:MI:SS')FECHA FROM EMPRESA.facturacion ORDER BY ID_FACTURA");
             while (rs.next()) {                
                 f = new FACTURA(rs.getString("ID_FACTURA"),
                         rs.getString("ID_CAJA"),
@@ -327,15 +329,47 @@ public class Listas extends Conexion_consulta{
                         rs.getInt("CANCELADA"),
                         rs.getInt("ANULADA"),
                         rs.getString("FECHA"));
+                vista.add(f);
             }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
         } catch (Exception e) {
-        }
-        
-        return null;
+            return null;
+        } 
     }
+    
+    public ArrayList<AUX_MENU> ListaGrafoMenu(String categoria){
+        
+        ArrayList<AUX_MENU> vista = new ArrayList<AUX_MENU>();
+        AUX_MENU a = null;
+        st = null;
+        rs = null;
+        
+            try {
+                st = conectar().createStatement();
+                rs = st.executeQuery("SELECT ID_MENU, NOMBRE_MENU, EMPRESA.FN_MENU_VENTAS(EMPRESA.MENU.ID_MENU)CANT_VENTA FROM EMPRESA.MENU WHERE ID_CATEGORIA='"+categoria+"' ORDER BY ID_MENU");
+                while (rs.next()) {                
+                    
+                    a = new AUX_MENU(rs.getString("ID_MENU"),
+                            rs.getString("NOMBRE_MENU"),
+                            rs.getInt("CANT_VENTA"));
+                    vista.add(a);
+                }
+                conectar().close();
+                st.close();
+                rs.close();
+                return vista;
+            } catch (Exception e) {
+                return null;
+            }
+    }
+    
+    
 //    public static void main(String[] args) {
 //        Listas l = new Listas();
-//        System.out.println(l.ListaCobrarPedido());
+//        System.out.println(l.ListaGrafoMenu("C"));
 //    }
     
 }

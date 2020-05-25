@@ -44,6 +44,14 @@
         <servlet-name>Cerrar_turno</servlet-name>
         <servlet-class>Servlets.Cerrar_turno</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Desocupar_Mesa</servlet-name>
+        <servlet-class>Servlets.Desocupar_Mesa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Menu_Estadistica</servlet-name>
+        <servlet-class>Servlets.Menu_Estadistica</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Autenticacion</url-pattern>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>Cerrar_turno</servlet-name>
         <url-pattern>/Cerrar_turno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Desocupar_Mesa</servlet-name>
+        <url-pattern>/Desocupar_Mesa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Menu_Estadistica</servlet-name>
+        <url-pattern>/Menu_Estadistica</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -116,7 +116,7 @@
         <section class="main container">
             <div class="row">
                 <section class="post col-md-2"></section>
-                <section class="post col-md-8">
+                <section class="post col-md-8"> 
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-secondary" style="width: 180px; text-align: left">Mesa: </button>
@@ -142,7 +142,7 @@
                         <%}else{%>
                             <input type="text" class="form-control" id="txtId_Mesero" disabled
                                value="<%out.print(new Buscar().usuario(Id_Mesero).getUSUARIO());%>">
-                        <%}%>
+                        <%}%> 
                     </div>
                     <br>
                     <div class="input-group">
@@ -186,6 +186,10 @@
                         <%if(Id_Mesero.equals("MSO-2")){%>
                         <button id="btnAsignarMesa" type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
                             Asignar
+                        </button>
+                        <%}else if(new Buscar().mesa(Id_Mesa).getSALDO()==0.0){%>
+                        <button id="btnDesocuparMesa" type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">
+                            Desocupar Mesa
                         </button>
                         <%}else{%>
                         <button disabled="" type="button" class="btn btn-outline-dark" style="width: 200px; height: 40px;">

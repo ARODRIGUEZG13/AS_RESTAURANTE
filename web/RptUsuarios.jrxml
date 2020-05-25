@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6ee27c1-af80-4ed7-bc12-bea4eb523996">
+	<property name="ireport.zoom" value="1.2100000000000029"/>
+	<property name="ireport.x" value="49"/>
+	<property name="ireport.y" value="24"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT * FROM EMPRESA.usuario
+INNER JOIN EMPRESA.CARGO ON empresa.usuario.id_cargo = empresa.cargo.id_cargo
+where empresa.usuario.id_usuario!='MSO-2' ORDER BY empresa.usuario.usuario]]>
+	</queryString>
+	<field name="ID_USUARIO" class="java.lang.String"/>
+	<field name="ID_CARGO" class="java.lang.String"/>
+	<field name="NOMBRES" class="java.lang.String"/>
+	<field name="APELLIDOS" class="java.lang.String"/>
+	<field name="USUARIO" class="java.lang.String"/>
+	<field name="CONTRASEÑA" class="java.lang.String"/>
+	<field name="ES_ADMIN" class="java.math.BigDecimal"/>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="5" y="13" width="263" height="33" forecolor="#000066" uuid="5693a685-5d69-47c2-a576-44714909d21c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[RESTAURANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="5" y="46" width="244" height="22" uuid="6e633872-b08c-4f8a-a254-0df2f300564d"/>
+				<text><![CDATA[Reporte de Usuarios]]></text>
+			</staticText>
+			<image>
+				<reportElement x="408" y="11" width="76" height="57" uuid="65cd4c02-49b6-4761-b902-b5aac323f622"/>
+				<imageExpression><![CDATA["C:\\Users\\Alex\\Documents\\NetBeansProjects\\AS_RESTAURANTE\\web\\images\\icons\\usuarios.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="5" y="86" width="548" height="1" uuid="d7a56498-19ce-410f-bb24-fe0f82ba9149"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed" lineColor="#000066"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="30" y="9" width="61" height="15" uuid="5f18ce8f-a26d-4486-81af-487df4f5e943"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="202" y="9" width="61" height="15" uuid="ce0dd37d-6a38-46ca-be37-599f58d977ff"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="263" y="9" width="61" height="15" uuid="2edfb828-bc39-4622-8c81-473a9ac48c7a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APELLIDOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="380" y="9" width="72" height="15" uuid="8932b150-db7b-468f-bd4f-2af853f037a2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="471" y="9" width="61" height="15" uuid="f56808f2-6a8e-444e-a34e-354df21a31be"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADMIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="91" y="9" width="74" height="15" uuid="afa04acc-b1f9-462f-a1a4-871c37d2903a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PUESTO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="24" width="548" height="1" uuid="4b1cbbf1-3511-48ff-a5ed-d263859d8201"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed" lineColor="#000066"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="30" y="8" width="61" height="15" uuid="725ba815-1895-4df8-a326-96e69902ea45"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID_USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="202" y="8" width="61" height="15" uuid="634f6f5e-1945-4ff0-b90d-ddb074c7442b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="263" y="8" width="61" height="15" uuid="afc72645-2327-4c40-aa55-b52ba4fe27ba"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APELLIDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="380" y="7" width="72" height="15" uuid="2e6440a9-dcc6-4d2d-b44c-849b7a10f1c6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="471" y="8" width="61" height="15" uuid="d3c1fa76-2932-4800-bfc0-e0bac1dfc78e"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ES_ADMIN}.intValue() == 1 ? "Si" : "No"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="91" y="8" width="74" height="15" uuid="dfa29a75-e5aa-40c6-bcd1-8980cbb3aba2"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b14ed9ab-05ce-4785-9d0d-3207c065ecb8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="f0249e2f-17e4-42d9-9e63-eff868311216"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="e9ba6c1f-e0f0-467a-89b4-d40a76a54dfb"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="5" y="0" width="197" height="20" uuid="1c7398f2-0a86-4415-84cc-4cd5e508f597"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

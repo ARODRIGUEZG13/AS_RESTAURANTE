@@ -115,7 +115,7 @@ public class Buscar extends Conexion_consulta{
             while(rs.next()){
                 m = new MENU(rs.getString("ID_MENU"),
                             rs.getString("ID_CATEGORIA"),
-                            rs.getString("NOMBRE"),
+                            rs.getString("NOMBRE_MENU"),
                             rs.getString("DESCRIPCION"),
                             rs.getDouble("PRECIO"),
                             rs.getInt("STOCK"), rs.getString("URL_IMAGEN"));
@@ -334,6 +334,35 @@ public class Buscar extends Conexion_consulta{
     public FACTURA factura (String id){
         st = null; rs = null;
         sql = "SELECT * FROM EMPRESA.FACTURACION WHERE ID_FACTURA='"+id+"'";
+        FACTURA f = null;
+        try {
+            st = conectar().createStatement();
+            rs = st.executeQuery(sql);
+            while (rs.next()) {                
+                f = new FACTURA(rs.getString("ID_FACTURA"),
+                        rs.getString("ID_CAJA"),
+                        rs.getString("ID_CAJERO"), 
+                        rs.getString("ID_MESERO"),
+                        rs.getString("ID_PEDIDO"),
+                        rs.getString("ID_FORMA_PAGO"),
+                        rs.getString("NIT"),
+                        rs.getDouble("VALOR"),
+                        rs.getInt("CANCELADA"),
+                        rs.getInt("ANULADA"),
+                        rs.getString("FECHA"));
+            }
+            conectar().close();
+            rs.close();
+            st.close();
+            return f;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public FACTURA FacturaPorIdPedido (String id){
+        st = null; rs = null;
+        sql = "SELECT * FROM EMPRESA.FACTURACION WHERE ID_PEDIDO='"+id+"'";
         FACTURA f = null;
         try {
             st = conectar().createStatement();

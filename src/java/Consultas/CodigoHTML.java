@@ -219,9 +219,9 @@ public class CodigoHTML  extends Conexion_consulta{
 "                                <td>"+new Buscar().cliente(f.getNIT()).getNOMBRE()+"</td>\n" +
 "                                <td>Q."+f.getVALOR()+"</td>\n" +
 "                                <td>"+
-"                                  <button formtarget=\"_blank\" onclick=\"location.href='ADS_Imprimir.jsp?IdFactura="+f.getID_FACTURA()+"'\" type=\"button\" class=\"btn btn-outline-light\" style=\"background: blue; height: 35px;\">\n" +
+"                                  <a target=\"_blank\" href=\"ADS_Imprimir.jsp?IdFactura="+f.getID_FACTURA()+"\" type=\"button\" class=\"btn btn-outline-light\" style=\"background: blue; height: 35px;\">\n" +
 "                                      Imprimir\n" +
-"                                  </button>\n" +
+"                                  </a>\n" +
 "                                </td>\n" +
 "                            </tr>";
             }
@@ -229,7 +229,7 @@ public class CodigoHTML  extends Conexion_consulta{
     }
     
 //    public static void main(String[] args) {
-//        System.out.println(new CodigoHTML().getFacturas());
+//        System.out.println(new CodigoHTML().getMenus("M-01"));
 //        
 //    }
 }

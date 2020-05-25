@@ -91,7 +91,7 @@
       <ul></ul><ul></ul><ul></ul>
       <ul></ul><ul></ul>
       <form class="form-inline my-2 my-lg-0" method="POST">
-       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</a>
+          <button disabled href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</button>
       </form>
   </div>
 </nav>
@@ -99,20 +99,20 @@
         <hr style="background: #20c997">         
         <h3 style="text-align: center">FINALIZACION DE PEDIDO</h3>
         <hr style="background: #20c997">
-        <br>
+        <br> 
         
         <section class="main container">
             <div class="row">
-                <section class="post col-md-4"></section>
+                <section class="post col-md-4"></section> 
                 <section class="post col-md-4">
                     <br><br><br><br>
-                    <button class="btn btn-block btn-outline-primary" style="height: 75px;">
-                        <h3>IMPRIMIR FACTURA</h3>
-                    </button>
+                    <a href="ADS_Imprimir.jsp?IdPedido=<%out.print(IdPedido);%>" target="_blank" class="btn btn-block btn-outline-primary" style="height: 75px;">
+                        <br><h3>IMPRIMIR FACTURA</h3>
+                    </a>
                     <br><br>
-                    <button onclick="location.hash='MP_Cajero.jsp?IdCaja=<%out.print((String)request.getParameter("IdCaja"));%>'" class="btn btn-block btn-outline-primary" style="height: 75px;">
+                    <button type="button" onclick="location.href='MP_Cajero.jsp?IdCaja=<%out.print((String)request.getParameter("IdCaja"));%>'" class="btn btn-block btn-outline-primary" style="height: 75px;">
                         <h3>MENU PRINCIPAL</h3>
-                    </button>
+                    </button> 
                     <br><br><br><br><br><br>
                 </section>
                 <section class="post col-md-4"></section>

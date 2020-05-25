@@ -53,7 +53,7 @@ public class Crear_Factura extends HttpServlet {
         String respuesta = "";
         int sigFac = new Buscar().siguiente_factura();
         String IdFactura = "FC-"+sigFac;
-        
+        double SaldoMesa = new Buscar().mesa(new Buscar().pedido(IdPedido).getID_MESA()).getSALDO() - new Buscar().total_pedido(IdPedido);
         
         HttpSession sesion = request.getSession();
         double SaldoCaja = 0;
@@ -71,7 +71,10 @@ public class Crear_Factura extends HttpServlet {
             SaldoCaja = SaldoCaja + total;
             sesion.setAttribute("efectivo", String.valueOf(SaldoCaja));
             new Update().EstadoPedido2(IdPedido);
-            
+            new Update().MesaSaldo(new Buscar().pedido(IdPedido).getID_MESA(), SaldoMesa);
+            if(new Buscar().mesa(new Buscar().pedido(IdPedido).getID_MESA()).getSALDO()==0.0){
+                new Update().MesaEstado(new Buscar().pedido(IdPedido).getID_MESA(), 1);
+            }
             respuesta = "true";
             
         }else{

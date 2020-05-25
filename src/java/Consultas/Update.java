@@ -41,9 +41,54 @@ public class Update extends Conexion_Transaccion{
         }
     }
     
+    public boolean MesaSaldo(String id, double saldo){
+        st = null;
+        sql = "UPDATE EMPRESA.MESA SET SALDO="+saldo+" WHERE ID_MESA='"+id+"'";
+        try {
+            st = conectar().createStatement();
+            st.executeUpdate(sql);
+            st.close();
+            conectar().commit();
+            conectar().close();
+            return true;
+        } catch (SQLException e) {
+               return false;
+        }
+    }
+    
+    public boolean MesaEstado(String id, int estado){
+        st = null;
+        sql = "UPDATE EMPRESA.MESA SET ESTADO="+estado+" WHERE ID_MESA='"+id+"'";
+        try {
+            st = conectar().createStatement();
+            st.executeUpdate(sql);
+            st.close();
+            conectar().commit();
+            conectar().close();
+            return true;
+        } catch (SQLException e) {
+               return false;
+        }
+    }
+    
+    public boolean MesaDesocupar(String id){
+        st = null;
+        sql = "UPDATE EMPRESA.MESA SET ID_USUARIO='MSO-2', ESTADO=0, CLIENTE=NULL WHERE ID_MESA='"+id+"'";
+        try {
+            st = conectar().createStatement();
+            st.executeUpdate(sql);
+            st.close();
+            conectar().commit();
+            conectar().close();
+            return true;
+        } catch (SQLException e) {
+               return false;
+        }
+    }
+    
     public boolean DesocuparMesa(String id){
         st = null;
-        sql = "UPDATE EMPRESA.MESA SET ID_USUARIO='MSO-2', CLIENTE=NULL WHERE ID_MESA='"+id+"'";
+        sql = "UPDATE EMPRESA.MESA SET ID_USUARIO='MSO-2', CLIENTE=NULL, ESTADO=0 WHERE ID_MESA='"+id+"'";
         
         try {
             st = conectar().createStatement();
@@ -103,6 +148,6 @@ public class Update extends Conexion_Transaccion{
     }
     
 //    public static void main(String[] args) {
-//        System.out.println(new Update().UsuarioCaja(new CAJA("C001", "MSO-2", 944)));
+//        System.out.println(new Update().MesaDesocupar("M-12"));
 //    }
 }

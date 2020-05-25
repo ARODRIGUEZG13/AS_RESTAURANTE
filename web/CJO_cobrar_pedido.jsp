@@ -91,7 +91,7 @@
       <ul></ul><ul></ul><ul></ul>
       <ul></ul><ul></ul>
       <form class="form-inline my-2 my-lg-0" method="POST">
-       <a href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</a>
+          <button disabled href="login.jsp?cerrar=true" button type="button" class="btn btn-outline-light">Cerrar Sesion</button>
       </form>
   </div>
 </nav>
